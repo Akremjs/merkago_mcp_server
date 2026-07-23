@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mcp_scope_tree" model="ir.ui.view">
+        <field name="name">merkago.mcp.scope.tree</field>
+        <field name="model">merkago.mcp.scope</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="pack"/>
+                <field name="perm_read"/>
+                <field name="perm_write"/>
+                <field name="perm_create"/>
+                <field name="perm_unlink"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mcp_scope_form" model="ir.ui.view">
+        <field name="name">merkago.mcp.scope.form</field>
+        <field name="model">merkago.mcp.scope</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="model_id"/>
+                            <field name="model_name" readonly="1"/>
+                            <field name="pack"/>
+                        </group>
+                        <group>
+                            <field name="perm_read"/>
+                            <field name="perm_write"/>
+                            <field name="perm_create"/>
+                            <field name="perm_unlink"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="domain_force" placeholder="[('customer_rank','>',0)]"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mcp_scope" model="ir.actions.act_window">
+        <field name="name">Scopes</field>
+        <field name="res_model">merkago.mcp.scope</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

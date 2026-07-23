@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mcp_token_wizard_form" model="ir.ui.view">
+        <field name="name">merkago.mcp.token.wizard.form</field>
+        <field name="model">merkago.mcp.token.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate MCP Token">
+                <group invisible="raw_token">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="scope_ids" widget="many2many_tags"/>
+                    <field name="company_ids" widget="many2many_tags"/>
+                    <field name="safe_mode"/>
+                </group>
+                <group invisible="not raw_token">
+                    <div class="alert alert-warning" role="alert">
+                        Copy this token now. It will not be shown again.
+                    </div>
+                    <field name="raw_token" readonly="1"/>
+                    <field name="token_id" readonly="1"/>
+                </group>
+                <footer>
+                    <button name="action_generate" type="object" string="Generate"
+                            class="btn-primary" invisible="raw_token"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

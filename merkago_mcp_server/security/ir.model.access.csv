@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mcp_scope_user,merkago.mcp.scope.user,model_merkago_mcp_scope,group_mcp_user,1,0,0,0
+access_mcp_scope_manager,merkago.mcp.scope.manager,model_merkago_mcp_scope,group_mcp_manager,1,1,1,1
+access_mcp_token_user,merkago.mcp.token.user,model_merkago_mcp_token,group_mcp_user,1,0,0,0
+access_mcp_token_manager,merkago.mcp.token.manager,model_merkago_mcp_token,group_mcp_manager,1,1,1,1
+access_mcp_audit_user,merkago.mcp.audit.user,model_merkago_mcp_audit_log,group_mcp_user,1,0,0,0
+access_mcp_audit_manager,merkago.mcp.audit.manager,model_merkago_mcp_audit_log,group_mcp_manager,1,1,1,1
+access_mcp_token_wizard_manager,merkago.mcp.token.wizard.manager,model_merkago_mcp_token_wizard,group_mcp_manager,1,1,1,1

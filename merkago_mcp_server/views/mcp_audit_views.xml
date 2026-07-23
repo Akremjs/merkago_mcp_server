@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mcp_audit_tree" model="ir.ui.view">
+        <field name="name">merkago.mcp.audit.log.tree</field>
+        <field name="model">merkago.mcp.audit.log</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" decoration-danger="not ok">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="token_id"/>
+                <field name="tool_name"/>
+                <field name="model_name"/>
+                <field name="ok"/>
+                <field name="result_count"/>
+                <field name="duration_ms"/>
+                <field name="ip"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mcp_audit_form" model="ir.ui.view">
+        <field name="name">merkago.mcp.audit.log.form</field>
+        <field name="model">merkago.mcp.audit.log</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <field name="create_date"/>
+                        <field name="user_id"/>
+                        <field name="token_id"/>
+                        <field name="tool_name"/>
+                        <field name="model_name"/>
+                        <field name="ok"/>
+                        <field name="result_count"/>
+                        <field name="duration_ms"/>
+                        <field name="ip"/>
+                    </group>
+                    <group>
+                        <field name="summary"/>
+                        <field name="error"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mcp_audit" model="ir.actions.act_window">
+        <field name="name">Audit Log</field>
+        <field name="res_model">merkago.mcp.audit.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_mcp_audit_export" model="ir.actions.server">
+        <field name="name">Export CSV</field>
+        <field name="model_id" ref="model_merkago_mcp_audit_log"/>
+        <field name="binding_model_id" ref="model_merkago_mcp_audit_log"/>
+        <field name="state">code</field>
+        <field name="code">action = env['merkago.mcp.audit.log'].action_export_csv()</field>
+    </record>
+</odoo>

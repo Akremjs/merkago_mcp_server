@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mcp_root"
+              name="Merkago MCP"
+              web_icon="merkago_mcp_server,static/description/icon.png"
+              sequence="45"
+              groups="merkago_mcp_server.group_mcp_manager"/>
+
+    <menuitem id="menu_mcp_tokens"
+              name="Tokens"
+              parent="menu_mcp_root"
+              action="action_mcp_token"
+              sequence="10"/>
+
+    <menuitem id="menu_mcp_scopes"
+              name="Scopes"
+              parent="menu_mcp_root"
+              action="action_mcp_scope"
+              sequence="20"/>
+
+    <menuitem id="menu_mcp_audit"
+              name="Audit Log"
+              parent="menu_mcp_root"
+              action="action_mcp_audit"
+              sequence="30"/>
+
+    <menuitem id="menu_mcp_generate"
+              name="Generate Token"
+              parent="menu_mcp_root"
+              action="action_mcp_token_wizard"
+              sequence="5"/>
+</odoo>

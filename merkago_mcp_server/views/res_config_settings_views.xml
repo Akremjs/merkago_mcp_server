@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_mcp" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.mcp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Merkago MCP" string="Merkago MCP" name="merkago_mcp_server"
+                     groups="merkago_mcp_server.group_mcp_manager">
+                    <block title="Claude Connector (P1)">
+                        <setting string="Enable MCP Server" help="Expose /mcp/health and /mcp/sse for Claude Desktop">
+                            <field name="mcp_enabled"/>
+                        </setting>
+                        <setting string="Safe Mode" help="Block all create/write even if scopes allow it">
+                            <field name="mcp_safe_mode"/>
+                        </setting>
+                        <setting string="Allow Writes">
+                            <field name="mcp_allow_write"/>
+                        </setting>
+                        <setting string="Allow Unlink">
+                            <field name="mcp_allow_unlink"/>
+                        </setting>
+                        <setting string="Public Base URL" help="https://your-odoo-domain">
+                            <field name="mcp_public_base_url" placeholder="https://erp.example.com"/>
+                        </setting>
+                        <setting string="Limits">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="mcp_default_limit" class="col-lg-3"/>
+                                    <field name="mcp_default_limit"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mcp_max_limit" class="col-lg-3"/>
+                                    <field name="mcp_max_limit"/>
+                                </div>
+                                <div class="row">
+                                    <label for="mcp_daily_quota" class="col-lg-3"/>
+                                    <field name="mcp_daily_quota"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Audit Log">
+                            <field name="mcp_audit_enabled"/>
+                        </setting>
+                        <setting string="Claude Desktop setup">
+                            <field name="mcp_claude_instructions" widget="text" readonly="1"/>
+                            <button name="action_mcp_copy_claude_help" type="object"
+                                    string="Show Claude instructions" class="btn-primary mt8"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
