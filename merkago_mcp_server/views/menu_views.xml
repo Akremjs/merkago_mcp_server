@@ -24,6 +24,18 @@
               action="action_mcp_audit"
               sequence="30"/>
 
+    <menuitem id="menu_mcp_oauth_clients"
+              name="OAuth Clients"
+              parent="menu_mcp_root"
+              action="action_mcp_oauth_client"
+              sequence="40"/>
+
+    <menuitem id="menu_mcp_oauth_access"
+              name="OAuth Access"
+              parent="menu_mcp_root"
+              action="action_mcp_oauth_access"
+              sequence="50"/>
+
     <menuitem id="menu_mcp_generate"
               name="Generate Token"
               parent="menu_mcp_root"

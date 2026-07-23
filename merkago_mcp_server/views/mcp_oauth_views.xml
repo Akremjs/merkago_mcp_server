@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mcp_oauth_client_tree" model="ir.ui.view">
+        <field name="name">merkago.mcp.oauth.client.tree</field>
+        <field name="model">merkago.mcp.oauth.client</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="client_id"/>
+                <field name="dynamic"/>
+                <field name="token_endpoint_auth_method"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mcp_oauth_client_form" model="ir.ui.view">
+        <field name="name">merkago.mcp.oauth.client.form</field>
+        <field name="model">merkago.mcp.oauth.client</field>
+        <field name="arch" type="xml">
+            <form string="OAuth Client">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="client_id"/>
+                        <field name="client_secret_prefix"/>
+                        <field name="token_endpoint_auth_method"/>
+                        <field name="grant_types"/>
+                        <field name="dynamic"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Redirect URIs">
+                        <field name="redirect_uris" nolabel="1" placeholder="One URI per line"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mcp_oauth_client" model="ir.actions.act_window">
+        <field name="name">OAuth Clients</field>
+        <field name="res_model">merkago.mcp.oauth.client</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_mcp_oauth_access_tree" model="ir.ui.view">
+        <field name="name">merkago.mcp.oauth.access.tree</field>
+        <field name="model">merkago.mcp.oauth.access</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="client_id"/>
+                <field name="token_prefix"/>
+                <field name="expires_at"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_mcp_oauth_access" model="ir.actions.act_window">
+        <field name="name">OAuth Access Tokens</field>
+        <field name="res_model">merkago.mcp.oauth.access</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

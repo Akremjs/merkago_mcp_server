@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Merkago MCP Server — Claude Connector",
-    "version": "17.0.1.0.0",
+    "version": "17.0.2.0.0",
     "category": "Productivity",
-    "summary": "Connect Claude Desktop to Odoo via native MCP (P1 socle)",
+    "summary": "Connect Claude Desktop to Odoo via native MCP + OAuth",
     "description": """
 Merkago MCP Server (Claude Connector)
 =====================================
 
-Phase 1 (CDC 2.0): native MCP server inside Odoo for Claude Desktop.
+Phase 2 (CDC 2.0): native MCP + OAuth 2.1 / PKCE for Claude Desktop.
 
 * Endpoints /mcp/health, /mcp/sse, /mcp/messages
-* Bearer token authentication
+* OAuth 2.1 + PKCE + Dynamic Client Registration
+* Bearer token authentication (legacy)
 * Tools: list/describe models, search_read, read, create, write
 * Safe Mode, scopes, audit log
-* Copy Claude connector instructions
 
 Author: AKREM.KHELIFI — merkago.net
 """,
@@ -32,6 +32,7 @@ Author: AKREM.KHELIFI — merkago.net
         "views/mcp_scope_views.xml",
         "views/mcp_token_views.xml",
         "views/mcp_audit_views.xml",
+        "views/mcp_oauth_views.xml",
         "views/res_config_settings_views.xml",
         "views/menu_views.xml",
     ],

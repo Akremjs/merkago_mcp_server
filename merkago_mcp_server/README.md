@@ -1,46 +1,37 @@
-# Merkago MCP Server — Claude Connector (P1)
+# Merkago MCP Server — Claude Connector (P2)
 
-Native MCP server inside Odoo Community for **Claude Desktop**.
+Native MCP server inside Odoo Community for **Claude Desktop**, with **OAuth 2.1 + PKCE**.
 
-CDC: `/home/almalinux/CDC_merkago_mcp_server.md` (v2.0 parity — this release is **Phase 1**).
-
-## Phase 1 features
+## Phase 2 features
 
 - `/mcp/health`, `/mcp/sse`, `/mcp/messages`
-- Bearer token auth
-- Tools: `odoo_list_models`, `odoo_describe_model`, `odoo_search_read`, `odoo_read`, `odoo_create`, `odoo_write`, `odoo_company_context`
-- Safe Mode, scopes, audit log (+ CSV export)
-- Settings instructions for Claude Desktop
+- OAuth discovery: `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`
+- `/oauth/register` (Dynamic Client Registration), `/oauth/authorize`, `/oauth/token`
+- Legacy Bearer tokens still supported
+- Tools: list/describe models, search_read, read, create, write, company_context
+- Safe Mode, scopes, audit log
 
-## Install
+## Claude Desktop setup
 
-1. Add `merkago_mcp_server` to addons path
-2. Update Apps list → install **Merkago MCP Server — Claude Connector**
-3. Settings → Merkago MCP → set Public Base URL, keep Safe Mode ON
-4. Merkago MCP → Generate Token (copy secret once)
-5. Claude Desktop → Connectors → custom connector:
+1. Install / upgrade module
+2. Set Public Base URL to `https://YOUR-DOMAIN` (Settings → Merkago MCP)
+3. Ensure `dbfilter` selects one DB if multi-database
+4. Claude → Connectors → Add custom connector
    - URL: `https://YOUR-DOMAIN/mcp/sse`
-   - Auth header: `Bearer <token>`
+   - Leave OAuth Client ID / Secret **empty**
+5. Sign in with your **Odoo internal user** on the Merkago authorize page
 
-## Multi-database (important for Claude)
-
-Claude Desktop has no Odoo session cookie. If several databases exist on the same instance, `/mcp/*` returns **404** until a DB is selected.
-
-Fix: set `dbfilter` in `odoo.conf` so the public Host resolves to one DB, e.g. `dbfilter = ^merkago$`, then restart Odoo. After that, bare `GET /mcp/health` works without a browser session.
-
-## Test (curl)
+## Test
 
 ```bash
-# With dbfilter (or after visiting /web?db=YOUR_DB once in the same cookie jar):
 curl https://YOUR-DOMAIN/mcp/health
-curl -X POST -H "Authorization: Bearer mcp_xxx" -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \
-  https://YOUR-DOMAIN/mcp/messages
+curl https://YOUR-DOMAIN/.well-known/oauth-authorization-server
+curl -i https://YOUR-DOMAIN/mcp/sse   # expect 401 + WWW-Authenticate
 ```
 
 ## Next phases (CDC)
 
-P2 OAuth · P3 Dashboards · P4 ACL UI · P5 CRM · P6 Documents/scrape · P7 Apps polish
+P3 Dashboards · P4 ACL UI · P5 CRM · P6 Documents/scrape · P7 Apps polish
 
 ## Author
 

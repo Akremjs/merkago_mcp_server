@@ -2,25 +2,35 @@
 import json
 import logging
 
-from odoo import http, _
+from odoo import http
 from odoo.http import request, Response
 
 _logger = logging.getLogger(__name__)
 
 
-def _json_response(payload, status=200):
+def _json_response(payload, status=200, headers=None):
+    hdrs = {}
+    if headers:
+        hdrs.update(headers)
     return Response(
         json.dumps(payload, default=str),
         status=status,
         mimetype="application/json",
+        headers=hdrs,
     )
+
+
+def _www_authenticate():
+    engine = request.env["merkago.mcp.engine"].sudo()
+    base = engine._public_url() or request.httprequest.host_url.rstrip("/")
+    meta = "%s/.well-known/oauth-protected-resource" % base
+    return 'Bearer realm="mcp", resource_metadata="%s"' % meta
 
 
 def _get_bearer_token():
     auth = request.httprequest.headers.get("Authorization") or ""
     if auth.lower().startswith("bearer "):
         return auth[7:].strip()
-    # Also accept ?token= or X-MCP-Token
     return (
         request.httprequest.headers.get("X-MCP-Token")
         or request.params.get("token")
@@ -30,8 +40,23 @@ def _get_bearer_token():
 
 def _authenticate():
     raw = _get_bearer_token()
+    if not raw:
+        return request.env["merkago.mcp.token"].browse()
     token = request.env["merkago.mcp.token"].sudo().authenticate(raw)
-    return token
+    if token:
+        return token
+    oauth = request.env["merkago.mcp.oauth.access"].sudo().authenticate(raw)
+    if oauth and oauth.mcp_token_id and oauth.mcp_token_id.active:
+        return oauth.mcp_token_id
+    return request.env["merkago.mcp.token"].browse()
+
+
+def _unauthorized():
+    return _json_response(
+        {"error": "Unauthorized"},
+        status=401,
+        headers={"WWW-Authenticate": _www_authenticate()},
+    )
 
 
 class MerkagoMcpController(http.Controller):
@@ -44,9 +69,10 @@ class MerkagoMcpController(http.Controller):
             {
                 "status": "ok" if enabled else "disabled",
                 "service": "merkago_mcp_server",
-                "version": "17.0.1.0.0",
-                "phase": "P1",
+                "version": "17.0.2.0.0",
+                "phase": "P2",
                 "enabled": enabled,
+                "oauth": True,
             }
         )
 
@@ -58,10 +84,9 @@ class MerkagoMcpController(http.Controller):
         csrf=False,
     )
     def mcp_sse(self, **kwargs):
-        """SSE endpoint for Claude connectors (P1 simplified handshake)."""
         token = _authenticate()
         if not token:
-            return _json_response({"error": "Unauthorized"}, status=401)
+            return _unauthorized()
         engine = request.env["merkago.mcp.engine"].sudo()
         if not engine._is_enabled():
             return _json_response({"error": "MCP disabled"}, status=503)
@@ -70,13 +95,12 @@ class MerkagoMcpController(http.Controller):
         messages_url = "%s/mcp/messages" % base
 
         def generate():
-            # MCP SSE: announce message endpoint then keep-alive
             yield "event: endpoint\ndata: %s\n\n" % messages_url
             yield "event: message\ndata: %s\n\n" % json.dumps(
                 {
                     "jsonrpc": "2.0",
                     "method": "notifications/message",
-                    "params": {"level": "info", "data": "Merkago MCP P1 ready"},
+                    "params": {"level": "info", "data": "Merkago MCP P2 ready"},
                 }
             )
             yield ": keepalive\n\n"
@@ -99,7 +123,7 @@ class MerkagoMcpController(http.Controller):
     def mcp_messages(self, **kwargs):
         token = _authenticate()
         if not token:
-            return _json_response({"error": "Unauthorized"}, status=401)
+            return _unauthorized()
         engine = request.env["merkago.mcp.engine"].sudo()
         if not engine._is_enabled():
             return _json_response({"error": "MCP disabled"}, status=503)
@@ -110,7 +134,6 @@ class MerkagoMcpController(http.Controller):
         except json.JSONDecodeError:
             return _json_response({"error": "Invalid JSON"}, status=400)
 
-        # Batch support
         if isinstance(payload, list):
             results = [self._handle_rpc(token, engine, item) for item in payload]
             return _json_response(results)
@@ -130,7 +153,7 @@ class MerkagoMcpController(http.Controller):
                     "capabilities": {"tools": {}},
                     "serverInfo": {
                         "name": "merkago_mcp_server",
-                        "version": "17.0.1.0.0",
+                        "version": "17.0.2.0.0",
                     },
                 }
                 if method.startswith("notifications/"):
@@ -180,7 +203,7 @@ class MerkagoMcpController(http.Controller):
                 }
 
             if method == "resources/read":
-                uri = (params.get("uri") or "")
+                uri = params.get("uri") or ""
                 if uri == "odoo://guide/odoo_conventions":
                     text = (
                         "Odoo MCP guide:\n"

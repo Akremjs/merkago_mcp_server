@@ -74,8 +74,9 @@ class MerkagoMcpEngine(models.AbstractModel):
             "instructions": _(
                 "Claude Desktop → Settings → Connectors → Add custom connector.\n"
                 "URL: %(sse)s\n"
-                "Auth: Bearer <your MCP token>\n"
-                "Generate a token in Merkago MCP → Tokens."
+                "Leave OAuth Client ID / Secret empty (Dynamic Registration).\n"
+                "Claude opens Merkago login → sign in with your Odoo user → Allow.\n"
+                "Optional legacy: Merkago MCP → Generate Token (Bearer)."
             )
             % {"sse": "%s/mcp/sse" % base if base else "/mcp/sse"},
         }
