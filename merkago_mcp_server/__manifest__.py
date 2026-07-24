@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Merkago MCP Server — Claude Connector",
+    "name": "Claude Connector Odoo",
     "version": "18.0.2.0.1",
     "category": "Productivity",
-    "summary": "Connect Claude Desktop to Odoo via native MCP + OAuth",
+    "summary": "Connect Claude to Odoo via native MCP + OAuth",
     "description": """
 Merkago MCP Server (Claude Connector)
 =====================================
