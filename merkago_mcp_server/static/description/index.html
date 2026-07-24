@@ -22,17 +22,40 @@
       line-height: 1.55;
     }
     .wrap { max-width: 920px; margin: 0 auto; padding: 28px 18px 48px; }
+    .cover {
+      display: block;
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      margin-bottom: 18px;
+      background: #020617;
+    }
     .hero {
       background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 55%, #0ea5e9 160%);
       border: 1px solid var(--line);
       border-radius: 16px;
       padding: 28px 24px;
       margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .hero-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      object-fit: cover;
+      background: #020617;
     }
     .hero .brand { color: var(--accent); font-weight: 700; letter-spacing: .03em; margin-bottom: 8px; }
     .hero h1 { margin: 0 0 10px; font-size: 1.75rem; }
     .hero p { margin: 0; color: #cbd5e1; max-width: 62ch; }
     .badges { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; justify-items: start; }
+    }
     .badge {
       background: rgba(56, 189, 248, .12);
       border: 1px solid rgba(56, 189, 248, .35);
@@ -132,23 +155,44 @@
 <body>
   <div class="wrap">
 
+    <!-- Couverture Apps (Claude ↔ Odoo) -->
+    <img class="cover" src="banner.png" alt="Merkago MCP Server — couverture Claude ↔ Odoo"/>
+
     <section class="hero">
-      <div class="brand">MERKAGO</div>
-      <h1>MCP Server — Claude Connector</h1>
-      <p>
-        Connectez <strong>Claude</strong> (Desktop / Web) à votre <strong>Odoo</strong>
-        via un serveur <strong>MCP natif</strong> : OAuth 2.1 + PKCE, scopes par modèle,
-        Safe Mode et journal d’audit. Claude lit (et peut écrire si vous l’autorisez)
-        vos contacts, produits, ventes… directement depuis le chat.
-      </p>
-      <div class="badges">
-        <span class="badge">Odoo 17 / 18 / 19</span>
-        <span class="badge">MCP + SSE / Streamable HTTP</span>
-        <span class="badge">OAuth 2.1 · PKCE</span>
-        <span class="badge">Safe Mode</span>
-        <span class="badge">90 USD · OPL-1</span>
+      <!-- Icône avec logos Claude + Odoo -->
+      <img class="hero-icon" src="icon.png" alt="Icône Merkago MCP — Claude et Odoo"/>
+      <div>
+        <div class="brand">MERKAGO</div>
+        <h1>MCP Server — Claude Connector</h1>
+        <p>
+          Connectez <strong>Claude</strong> (Desktop / Web) à votre <strong>Odoo</strong>
+          via un serveur <strong>MCP natif</strong> : OAuth 2.1 + PKCE, scopes par modèle,
+          Safe Mode et journal d’audit. Claude lit (et peut écrire si vous l’autorisez)
+          vos contacts, produits, ventes… directement depuis le chat.
+        </p>
+        <div class="badges">
+          <span class="badge">Odoo 17 / 18 / 19</span>
+          <span class="badge">MCP + SSE / Streamable HTTP</span>
+          <span class="badge">OAuth 2.1 · PKCE</span>
+          <span class="badge">Safe Mode</span>
+          <span class="badge">90 USD · OPL-1</span>
+        </div>
       </div>
     </section>
+
+    <h2>Visuels du module</h2>
+    <div class="grid">
+      <div class="card">
+        <strong>Icône (Claude + Odoo)</strong>
+        <img src="icon.png" alt="Icône Merkago" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #334155"/>
+        <p class="caption">Logos Claude et Odoo reliés par MCP — reconnaissance immédiate.</p>
+      </div>
+      <div class="card">
+        <strong>Couverture</strong>
+        <img src="cover.png" alt="Couverture Merkago" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #334155"/>
+        <p class="caption">Bannière Apps : Merkago · Claude ↔ Odoo · MCP + OAuth.</p>
+      </div>
+    </div>
 
     <h2>Pourquoi ce module ?</h2>
     <div class="grid">
