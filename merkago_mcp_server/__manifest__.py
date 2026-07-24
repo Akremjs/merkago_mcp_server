@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Merkago MCP Server — Claude Connector",
-    "version": "17.0.2.0.0",
+    "version": "17.0.2.0.1",
     "category": "Productivity",
     "summary": "Connect Claude Desktop to Odoo via native MCP + OAuth",
     "description": """
 Merkago MCP Server (Claude Connector)
 =====================================
 
-Phase 2 (CDC 2.0): native MCP + OAuth 2.1 / PKCE for Claude Desktop.
+Native MCP server for Claude Desktop / Claude.ai with OAuth 2.1 + PKCE.
 
 * Endpoints /mcp/health, /mcp/sse, /mcp/messages
 * OAuth 2.1 + PKCE + Dynamic Client Registration
@@ -23,10 +23,9 @@ Author: AKREM.KHELIFI — merkago.net
     "license": "OPL-1",
     "price": 90.00,
     "currency": "USD",
+    # Cover / thumbnail for Odoo Apps (official path)
     "images": [
-        "static/description/main_screenshot.png",
-        "static/description/banner.png",
-        "static/description/icon.png",
+        "images/main_screenshot.jpg",
         "static/description/cl1.png",
         "static/description/cl2.png",
         "static/description/cl3.png",

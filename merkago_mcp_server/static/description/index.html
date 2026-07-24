@@ -1,372 +1,108 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Merkago MCP Server — Claude Connector</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --odoo: #714B67;
-      --line: #334155;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 18px 48px; }
-    .cover {
-      display: block;
-      width: 100%;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      margin-bottom: 18px;
-      background: #020617;
-    }
-    .hero {
-      background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 55%, #0ea5e9 160%);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 28px 24px;
-      margin-bottom: 28px;
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 20px;
-      align-items: center;
-    }
-    .hero-icon {
-      width: 120px;
-      height: 120px;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      object-fit: cover;
-      background: #020617;
-    }
-    .hero .brand { color: var(--accent); font-weight: 700; letter-spacing: .03em; margin-bottom: 8px; }
-    .hero h1 { margin: 0 0 10px; font-size: 1.75rem; }
-    .hero p { margin: 0; color: #cbd5e1; max-width: 62ch; }
-    .badges { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-    @media (max-width: 640px) {
-      .hero { grid-template-columns: 1fr; justify-items: start; }
-    }
-    .badge {
-      background: rgba(56, 189, 248, .12);
-      border: 1px solid rgba(56, 189, 248, .35);
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: .82rem;
-      font-weight: 600;
-    }
-    h2 {
-      margin: 32px 0 12px;
-      font-size: 1.25rem;
-      border-left: 4px solid var(--accent);
-      padding-left: 12px;
-    }
-    h3 { margin: 0 0 8px; font-size: 1.05rem; color: #e2e8f0; }
-    p, li { color: #cbd5e1; }
-    ul { padding-left: 1.2rem; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin: 14px 0 8px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 14px 12px;
-    }
-    .card strong { color: var(--accent); display: block; margin-bottom: 6px; }
-    .step {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 18px;
-      margin: 16px 0;
-    }
-    .step-num {
-      display: inline-block;
-      background: var(--accent);
-      color: #0f172a;
-      font-weight: 800;
-      border-radius: 8px;
-      padding: 2px 10px;
-      margin-bottom: 8px;
-      font-size: .85rem;
-    }
-    .step img {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      margin-top: 12px;
-      background: #000;
-    }
-    .caption {
-      margin-top: 8px;
-      font-size: .9rem;
-      color: var(--muted);
-    }
-    code, .mono {
-      font-family: ui-monospace, Consolas, monospace;
-      background: #020617;
-      color: #7dd3fc;
-      padding: 1px 6px;
-      border-radius: 6px;
-      font-size: .9em;
-    }
-    .box {
-      background: #020617;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin: 10px 0;
-      overflow-x: auto;
-    }
-    .note {
-      background: rgba(113, 75, 103, .18);
-      border: 1px solid rgba(113, 75, 103, .45);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin: 14px 0;
-    }
-    .ok { color: #4ade80; font-weight: 700; }
-    footer {
-      margin-top: 36px;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: .9rem;
-    }
-    a { color: var(--accent); }
-  </style>
 </head>
 <body>
-  <div class="wrap">
-
-    <!-- Couverture Apps (Claude ↔ Odoo) -->
-    <img class="cover" src="banner.png" alt="Merkago MCP Server — couverture Claude ↔ Odoo"/>
-
-    <section class="hero">
-      <!-- Icône avec logos Claude + Odoo -->
-      <img class="hero-icon" src="icon.png" alt="Icône Merkago MCP — Claude et Odoo"/>
-      <div>
-        <div class="brand">MERKAGO</div>
-        <h1>MCP Server — Claude Connector</h1>
-        <p>
-          Connectez <strong>Claude</strong> (Desktop / Web) à votre <strong>Odoo</strong>
-          via un serveur <strong>MCP natif</strong> : OAuth 2.1 + PKCE, scopes par modèle,
-          Safe Mode et journal d’audit. Claude lit (et peut écrire si vous l’autorisez)
-          vos contacts, produits, ventes… directement depuis le chat.
-        </p>
-        <div class="badges">
-          <span class="badge">Odoo 17 / 18 / 19</span>
-          <span class="badge">MCP + SSE / Streamable HTTP</span>
-          <span class="badge">OAuth 2.1 · PKCE</span>
-          <span class="badge">Safe Mode</span>
-          <span class="badge">90 USD · OPL-1</span>
-        </div>
-      </div>
-    </section>
-
-    <h2>Visuels du module</h2>
-    <div class="grid">
-      <div class="card">
-        <strong>Icône (Claude + Odoo)</strong>
-        <img src="icon.png" alt="Icône Merkago" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #334155"/>
-        <p class="caption">Logos Claude et Odoo reliés par MCP — reconnaissance immédiate.</p>
-      </div>
-      <div class="card">
-        <strong>Couverture</strong>
-        <img src="cover.png" alt="Couverture Merkago" style="width:100%;border-radius:12px;margin-top:8px;border:1px solid #334155"/>
-        <p class="caption">Bannière Apps : Merkago · Claude ↔ Odoo · MCP + OAuth.</p>
-      </div>
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan">Merkago MCP Server</h2>
+    <h3 class="oe_slogan">Connect Claude to your Odoo</h3>
+    <div class="oe_demo oe_screenshot">
+      <img src="banner.png" alt="Merkago MCP — Claude connected to Odoo"/>
     </div>
-
-    <h2>Pourquoi ce module ?</h2>
-    <div class="grid">
-      <div class="card">
-        <strong>Claude ↔ Odoo</strong>
-        Posez des questions métier en langage naturel : « Combien de produits ? »,
-        « Liste les clients », « Décris sale.order ».
-      </div>
-      <div class="card">
-        <strong>Sécurité maîtrisée</strong>
-        Whitelist de modèles (scopes), Safe Mode, quotas journaliers, audit log.
-      </div>
-      <div class="card">
-        <strong>OAuth moderne</strong>
-        Connexion « Sign in with Odoo » depuis Claude, sans coller de token à la main
-        (token Bearer legacy toujours disponible).
-      </div>
-      <div class="card">
-        <strong>Installation simple</strong>
-        Module Apps → activer → URL publique → connecteur Claude en 2 minutes.
-      </div>
-    </div>
-
-    <h2>Fonctionnalités</h2>
-    <ul>
-      <li>Endpoints <span class="mono">/mcp/health</span>, <span class="mono">/mcp/sse</span>, <span class="mono">/mcp/messages</span></li>
-      <li>OAuth 2.1 + PKCE + Dynamic Client Registration (+ Client ID statique)</li>
-      <li>Outils MCP : <span class="mono">odoo_list_models</span>, <span class="mono">odoo_describe_model</span>,
-          <span class="mono">odoo_search_read</span>, <span class="mono">odoo_read</span>,
-          <span class="mono">odoo_create</span>, <span class="mono">odoo_write</span>,
-          <span class="mono">odoo_company_context</span></li>
-      <li>Scopes par modèle (lecture / écriture / création / suppression)</li>
-      <li>Safe Mode (bloque create/write tant qu’il est actif)</li>
-      <li>Journal d’audit des appels Claude → Odoo</li>
-    </ul>
-
-    <h2>Prérequis</h2>
-    <ul>
-      <li>Odoo Community (ou Enterprise) avec le module installé</li>
-      <li>URL publique HTTPS (ex. <span class="mono">https://votredomaine.com</span>)</li>
-      <li><span class="mono">dbfilter</span> pointant vers la bonne base si multi-DB</li>
-      <li>Compte Claude avec accès aux <strong>Connecteurs</strong></li>
-      <li>Utilisateur Odoo <strong>interne</strong> (pas un utilisateur portail)</li>
-    </ul>
-
-    <!-- ========== ÉTAPES ========== -->
-    <h2>Démarche — brancher Claude sur Odoo</h2>
-    <p>
-      Suivez les étapes ci-dessous. Les captures montrent le parcours Claude
-      (étapes 1 à 4) puis la configuration des droits dans Odoo (étapes 5 et 6).
+    <p class="oe_mt32 text-center">
+      Native <b>MCP</b> server inside Odoo Community for <b>Claude Desktop / Claude.ai</b>.
+      OAuth 2.1 + PKCE, model scopes, Safe Mode and audit log.
     </p>
-
-    <article class="step">
-      <div class="step-num">Étape 1</div>
-      <h3>Ouvrir les Connecteurs Claude</h3>
-      <p>
-        Dans Claude → <strong>Paramètres</strong> → section <strong>Personnaliser</strong>
-        → cliquez sur <strong>Connecteurs</strong>.
-        Puis cliquez sur le bouton <strong>Ajouter</strong> en haut à droite.
-      </p>
-      <img src="cl1.png" alt="Claude — menu Connecteurs et bouton Ajouter"/>
-      <p class="caption">Capture 1 — Accès au menu Connecteurs et bouton Ajouter.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-num">Étape 2</div>
-      <h3>Choisir « Ajouter un connecteur personnalisé »</h3>
-      <p>
-        Dans le menu déroulant <strong>Ajouter</strong>, sélectionnez
-        <strong>Ajouter un connecteur personnalisé</strong>
-        (pas « Parcourir les connecteurs »).
-      </p>
-      <img src="cl2.png" alt="Claude — Ajouter un connecteur personnalisé"/>
-      <p class="caption">Capture 2 — Création d’un connecteur MCP personnalisé.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-num">Étape 3</div>
-      <h3>Renseigner le formulaire du connecteur</h3>
-      <p>Remplissez les champs comme suit :</p>
-      <div class="box">
-        <div><strong>Nom</strong> : <span class="mono">Merkago</span></div>
-        <div><strong>URL du serveur MCP distant</strong> :
-          <span class="mono">https://VOTRE-DOMAINE/mcp/sse</span></div>
-        <div><strong>ID client OAuth</strong> (recommandé) :
-          <span class="mono">merkago-claude-desktop</span>
-          <em style="color:#94a3b8"> — ou laissez vide pour l’inscription dynamique</em>
-        </div>
-        <div><strong>Secret client OAuth</strong> : <em style="color:#94a3b8">laisser vide</em></div>
-      </div>
-      <div class="note">
-        <strong>Attention URL :</strong> un seul <span class="mono">https://</span>
-        et des slashs <span class="mono">/</span> (jamais <span class="mono">\</span>).
-        Exemple correct : <span class="mono">https://merkago.net/mcp/sse</span>
-      </div>
-      <img src="cl3.png" alt="Claude — formulaire Ajouter un connecteur personnalisé"/>
-      <p class="caption">Capture 3 — Formulaire Nom + URL MCP distant.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-num">Étape 4</div>
-      <h3>Paramètres avancés OAuth puis Ajouter</h3>
-      <p>
-        Ouvrez <strong>Paramètres avancés</strong>, collez l’ID client OAuth si besoin,
-        laissez le secret vide, puis cliquez sur <strong>Ajouter</strong>.
-        Claude ouvre la page Merkago « Autoriser Claude Desktop » :
-        connectez-vous avec votre utilisateur Odoo interne et autorisez.
-      </p>
-      <img src="cl4.png" alt="Claude — paramètres OAuth du connecteur"/>
-      <p class="caption">Capture 4 — ID client OAuth (facultatif) et validation.</p>
-      <p class="ok">✓ Une fois connecté, les outils Merkago apparaissent dans Claude.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-num">Étape 5</div>
-      <h3>Dans Odoo — choisir les scopes du token</h3>
-      <p>
-        Allez dans <strong>Merkago MCP → Tokens</strong> (ou le token OAuth lié),
-        ouvrez le token Claude, puis ajoutez les <strong>Scopes</strong> autorisés
-        (ex. Contacts, Produits, Utilisateurs…).
-        Seuls les modèles cochés seront visibles par Claude.
-      </p>
-      <img src="cl5.png" alt="Odoo Merkago MCP — sélection des scopes"/>
-      <p class="caption">Capture 5 — Whitelist des modèles exposés à Claude.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-num">Étape 6</div>
-      <h3>Créer un nouveau scope (ex. Produits)</h3>
-      <p>
-        Depuis la liste des scopes → <strong>Nouveau</strong> :
-      </p>
-      <ul>
-        <li><strong>Name</strong> : Products / Templates</li>
-        <li><strong>Model</strong> : <span class="mono">product.template</span></li>
-        <li><strong>Pack</strong> : Inventory</li>
-        <li><strong>Perm Read</strong> : oui · Write / Create / Unlink : non (recommandé)</li>
-        <li><strong>Extra Domain</strong> : vide (sauf filtre métier volontaire)</li>
-        <li>Enregistrer, puis rattacher le scope au token Claude</li>
-      </ul>
-      <div class="note">
-        L’exemple <span class="mono">[('customer_rank','&gt;',0)]</span> sert aux
-        <strong>contacts clients</strong>, pas aux produits.
-      </div>
-      <img src="cl6.png" alt="Odoo Merkago MCP — créer un scope"/>
-      <p class="caption">Capture 6 — Formulaire de création d’un scope modèle.</p>
-    </article>
-
-    <h2>Test rapide dans Claude</h2>
-    <div class="box">
-      Utilise l’outil Merkago <span class="mono">odoo_list_models</span> (pas ta mémoire),
-      puis compte les <span class="mono">product.template</span> avec
-      <span class="mono">odoo_search_read</span>.
-    </div>
-
-    <h2>Paramètres Odoo recommandés</h2>
-    <ul>
-      <li><strong>Merkago MCP → Settings</strong> : Public Base URL = votre HTTPS</li>
-      <li><strong>Safe Mode</strong> : ON en production jusqu’à validation</li>
-      <li><strong>OAuth Clients</strong> : client statique
-          <span class="mono">merkago-claude-desktop</span> avec redirect
-          <span class="mono">https://claude.ai/api/mcp/auth_callback</span></li>
-    </ul>
-
-    <h2>Support</h2>
-    <p>
-      Auteur : <strong>AKREM.KHELIFI</strong> —
-      <a href="https://merkago.net" target="_blank" rel="noopener">merkago.net</a><br/>
-      Licence : OPL-1 · Prix : 90.00 USD (part Odoo Apps incluse)
-    </p>
-
-    <footer>
-      Merkago MCP Server — Claude Connector · Documentation Apps · © Merkago
-    </footer>
   </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Why Merkago MCP?</h3>
+    <div class="oe_span4">
+      <h4>Claude ↔ Odoo</h4>
+      <p>Ask business questions in natural language: products, contacts, sales orders…</p>
+    </div>
+    <div class="oe_span4">
+      <h4>Secure by design</h4>
+      <p>Whitelist scopes per model, Safe Mode, daily quotas and full audit trail.</p>
+    </div>
+    <div class="oe_span4">
+      <h4>Modern OAuth</h4>
+      <p>Sign in with Odoo from Claude. Optional static Client ID. Legacy Bearer tokens supported.</p>
+    </div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Features</h3>
+    <ul>
+      <li>Endpoints <code>/mcp/health</code>, <code>/mcp/sse</code>, <code>/mcp/messages</code></li>
+      <li>OAuth 2.1 + PKCE + Dynamic Client Registration</li>
+      <li>Tools: list/describe models, search_read, read, create, write, company context</li>
+      <li>Safe Mode blocks writes until you enable them</li>
+      <li>Price: <b>90 USD</b> · License: <b>OPL-1</b></li>
+    </ul>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Setup in Claude — Step by step</h3>
+
+    <h4>1) Open Connectors</h4>
+    <p>Claude → Settings → Customize → <b>Connectors</b> → click <b>Add</b>.</p>
+    <div class="oe_demo oe_screenshot"><img src="cl1.png" alt="Claude Connectors menu"/></div>
+
+    <h4>2) Add a custom connector</h4>
+    <p>Choose <b>Add custom connector</b>.</p>
+    <div class="oe_demo oe_screenshot"><img src="cl2.png" alt="Add custom connector"/></div>
+
+    <h4>3) Enter Name + MCP URL</h4>
+    <p>
+      Name: <code>Merkago</code><br/>
+      Remote MCP URL: <code>https://YOUR-DOMAIN/mcp/sse</code>
+    </p>
+    <div class="oe_demo oe_screenshot"><img src="cl3.png" alt="Custom connector form"/></div>
+
+    <h4>4) OAuth Client ID (optional) then Add</h4>
+    <p>
+      OAuth Client ID: <code>merkago-claude-desktop</code> (or leave empty for dynamic registration).<br/>
+      OAuth Client Secret: leave empty. Click <b>Add</b> and authorize with an internal Odoo user.
+    </p>
+    <div class="oe_demo oe_screenshot"><img src="cl4.png" alt="OAuth advanced settings"/></div>
+
+    <h4>5) Choose scopes in Odoo</h4>
+    <p>Merkago MCP → Tokens / Scopes — whitelist models Claude may access (contacts, products…).</p>
+    <div class="oe_demo oe_screenshot"><img src="cl5.png" alt="Select MCP scopes"/></div>
+
+    <h4>6) Create a new scope (example: Products)</h4>
+    <p>Model <code>product.template</code>, Pack Inventory, Read only recommended. Leave Extra Domain empty for products.</p>
+    <div class="oe_demo oe_screenshot"><img src="cl6.png" alt="Create MCP scope"/></div>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Quick test in Claude</h3>
+    <p>Ask Claude to call <code>odoo_list_models</code>, then count <code>product.template</code> with <code>odoo_search_read</code>.</p>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Support</h3>
+    <p>
+      Author: <b>AKREM.KHELIFI</b> —
+      <a href="https://merkago.net" target="_blank">merkago.net</a><br/>
+      License: OPL-1 · Price: 90.00 USD
+    </p>
+  </div>
+</section>
 </body>
 </html>
