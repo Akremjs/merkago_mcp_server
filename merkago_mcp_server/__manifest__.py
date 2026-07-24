@@ -21,7 +21,7 @@ Author: AKREM.KHELIFI — merkago.net
     "author": "AKREM.KHELIFI",
     "website": "https://merkago.net",
     "license": "OPL-1",
-    "price": 143.00,
+    "price": 90.00,
     "currency": "USD",
     "depends": ["mail", "contacts"],
     "data": [

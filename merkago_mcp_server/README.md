@@ -35,4 +35,4 @@ P3 Dashboards · P4 ACL UI · P5 CRM · P6 Documents/scrape · P7 Apps polish
 
 ## Author
 
-AKREM.KHELIFI — https://merkago.net · OPL-1 · 143 USD
+AKREM.KHELIFI — https://merkago.net · OPL-1 · 90 USD

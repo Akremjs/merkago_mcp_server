@@ -10,6 +10,36 @@
         <field name="sequence">10</field>
     </record>
 
+    <record id="scope_product_template" model="merkago.mcp.scope">
+        <field name="name">Products / Templates</field>
+        <field name="pack">inventory</field>
+        <field name="model_id" search="[('model', '=', 'product.template')]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="scope_product_product" model="merkago.mcp.scope">
+        <field name="name">Products / Variants</field>
+        <field name="pack">inventory</field>
+        <field name="model_id" search="[('model', '=', 'product.product')]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="sequence">21</field>
+    </record>
+
+    <record id="scope_product_category" model="merkago.mcp.scope">
+        <field name="name">Product Categories</field>
+        <field name="pack">inventory</field>
+        <field name="model_id" search="[('model', '=', 'product.category')]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="sequence">22</field>
+    </record>
+
     <record id="scope_users" model="merkago.mcp.scope">
         <field name="name">Users (read)</field>
         <field name="pack">custom</field>

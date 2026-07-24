@@ -77,19 +77,34 @@ class MerkagoMcpController(http.Controller):
         )
 
     @http.route(
-        "/mcp/sse",
+        ["/mcp", "/mcp/sse"],
         type="http",
         auth="public",
         methods=["GET", "POST"],
         csrf=False,
     )
     def mcp_sse(self, **kwargs):
+        """GET = classic SSE; POST with JSON = Streamable HTTP (Claude Desktop)."""
         token = _authenticate()
         if not token:
             return _unauthorized()
         engine = request.env["merkago.mcp.engine"].sudo()
         if not engine._is_enabled():
             return _json_response({"error": "MCP disabled"}, status=503)
+
+        # Claude / Streamable HTTP posts JSON-RPC directly to the connector URL.
+        if request.httprequest.method == "POST":
+            raw = (request.httprequest.get_data(as_text=True) or "").strip()
+            ctype = (request.httprequest.mimetype or "").lower()
+            accept = (request.httprequest.headers.get("Accept") or "").lower()
+            looks_json = (
+                raw.startswith("{")
+                or raw.startswith("[")
+                or "application/json" in ctype
+                or "application/json" in accept
+            )
+            if looks_json:
+                return self._rpc_http(token, engine, raw)
 
         base = engine._public_url() or request.httprequest.host_url.rstrip("/")
         messages_url = "%s/mcp/messages" % base
@@ -128,8 +143,11 @@ class MerkagoMcpController(http.Controller):
         if not engine._is_enabled():
             return _json_response({"error": "MCP disabled"}, status=503)
 
+        raw = request.httprequest.get_data(as_text=True) or "{}"
+        return self._rpc_http(token, engine, raw)
+
+    def _rpc_http(self, token, engine, raw):
         try:
-            raw = request.httprequest.get_data(as_text=True) or "{}"
             payload = json.loads(raw) if raw else {}
         except json.JSONDecodeError:
             return _json_response({"error": "Invalid JSON"}, status=400)
@@ -137,6 +155,11 @@ class MerkagoMcpController(http.Controller):
         if isinstance(payload, list):
             results = [self._handle_rpc(token, engine, item) for item in payload]
             return _json_response(results)
+
+        # JSON-RPC notification (no id): Streamable HTTP expects 202 + empty body
+        if isinstance(payload, dict) and "id" not in payload:
+            self._handle_rpc(token, engine, payload)
+            return Response("", status=202)
 
         return _json_response(self._handle_rpc(token, engine, payload))
 
@@ -148,8 +171,11 @@ class MerkagoMcpController(http.Controller):
 
         try:
             if method in ("initialize", "notifications/initialized"):
+                client_version = (params or {}).get("protocolVersion") or "2024-11-05"
+                supported = {"2024-11-05", "2025-03-26", "2025-06-18"}
+                protocol_version = client_version if client_version in supported else "2024-11-05"
                 result = {
-                    "protocolVersion": "2024-11-05",
+                    "protocolVersion": protocol_version,
                     "capabilities": {"tools": {}},
                     "serverInfo": {
                         "name": "merkago_mcp_server",
