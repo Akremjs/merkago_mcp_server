@@ -6,103 +6,205 @@
   <title>Claude Connector Odoo</title>
 </head>
 <body>
+
+<!-- ========== HERO ========== -->
 <section class="oe_container">
   <div class="oe_row oe_spaced">
     <h2 class="oe_slogan">Claude Connector Odoo</h2>
-    <h3 class="oe_slogan">Connect Claude to your Odoo</h3>
+    <h3 class="oe_slogan">Bring Claude AI into your Odoo ERP — securely, natively, in minutes</h3>
     <div class="oe_demo oe_screenshot">
-      <img src="banner.png" alt="Merkago MCP — Claude connected to Odoo"/>
+      <img src="banner.png" alt="Claude Connector Odoo — Claude connected to Odoo via MCP"/>
     </div>
-    <p class="oe_mt32 text-center">
-      Native <b>MCP</b> server inside Odoo Community for <b>Claude Desktop / Claude.ai</b>.
-      OAuth 2.1 + PKCE, model scopes, Safe Mode and audit log.
+  </div>
+</section>
+
+<!-- ========== PROFESSIONAL OVERVIEW ========== -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">What is Claude Connector Odoo?</h3>
+    <p class="oe_mt32">
+      <b>Claude Connector Odoo</b> is a production-ready <b>MCP (Model Context Protocol)</b> server
+      embedded inside Odoo Community. It lets <b>Claude Desktop</b> and <b>Claude.ai</b> talk
+      directly to your ERP: list models, search records, read data, and (when you allow it)
+      create or update business documents — all through natural language.
+    </p>
+    <p>
+      Unlike fragile scripts or external middlewares, the connector runs <b>natively in Odoo</b>.
+      Authentication uses modern <b>OAuth 2.1 + PKCE</b> (Sign in with Odoo). Access is controlled
+      by a <b>model whitelist (scopes)</b>, <b>Safe Mode</b>, daily quotas and a full <b>audit log</b>.
+      You decide exactly what Claude can see and do.
+    </p>
+    <p>
+      Ideal for consultants, SMEs and technical teams who want Claude as a secure assistant
+      on top of Contacts, Products, Sales, Accounting and more — without exposing the whole database.
     </p>
   </div>
 </section>
 
 <section class="oe_container">
   <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Why Merkago MCP?</h3>
+    <h3 class="oe_slogan">Why choose this module?</h3>
     <div class="oe_span4">
-      <h4>Claude ↔ Odoo</h4>
-      <p>Ask business questions in natural language: products, contacts, sales orders…</p>
+      <h4>Native &amp; reliable</h4>
+      <p>MCP endpoints live inside Odoo (<code>/mcp/sse</code>). No fragile bridge server to maintain.</p>
     </div>
     <div class="oe_span4">
-      <h4>Secure by design</h4>
-      <p>Whitelist scopes per model, Safe Mode, daily quotas and full audit trail.</p>
+      <h4>Enterprise-grade security</h4>
+      <p>OAuth 2.1 / PKCE, per-model scopes, Safe Mode (blocks writes), quotas and audit trail.</p>
     </div>
     <div class="oe_span4">
-      <h4>Modern OAuth</h4>
-      <p>Sign in with Odoo from Claude. Optional static Client ID. Legacy Bearer tokens supported.</p>
+      <h4>Built for Claude</h4>
+      <p>Works with Claude Connectors (custom remote MCP). Streamable HTTP + classic SSE supported.</p>
     </div>
   </div>
 </section>
 
 <section class="oe_container">
   <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Features</h3>
+    <h3 class="oe_slogan">Key features</h3>
     <ul>
-      <li>Endpoints <code>/mcp/health</code>, <code>/mcp/sse</code>, <code>/mcp/messages</code></li>
-      <li>OAuth 2.1 + PKCE + Dynamic Client Registration</li>
-      <li>Tools: list/describe models, search_read, read, create, write, company context</li>
-      <li>Safe Mode blocks writes until you enable them</li>
-      <li>Price: <b>90 USD</b> · License: <b>OPL-1</b></li>
+      <li>Native MCP server: <code>/mcp/health</code>, <code>/mcp/sse</code>, <code>/mcp/messages</code></li>
+      <li>OAuth 2.1 + PKCE + Dynamic Client Registration (static Client ID supported)</li>
+      <li>Legacy Bearer tokens still available</li>
+      <li>Tools: <code>odoo_list_models</code>, <code>odoo_describe_model</code>, <code>odoo_search_read</code>,
+          <code>odoo_read</code>, <code>odoo_create</code>, <code>odoo_write</code>, <code>odoo_company_context</code></li>
+      <li>Scope packs (Contacts, Inventory, Sales, Accounting, Custom)</li>
+      <li>Safe Mode, multi-company aware domain, daily quota, audit log</li>
+      <li>Compatible with Odoo <b>17.0 / 18.0 / 19.0</b></li>
+      <li>License <b>OPL-1</b> · Price <b>90 USD</b></li>
     </ul>
   </div>
 </section>
 
+<!-- ========== PREREQUISITES ========== -->
 <section class="oe_container">
   <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Setup in Claude — Step by step</h3>
+    <h3 class="oe_slogan">Prerequisites</h3>
+    <ul>
+      <li>Odoo Community (or Enterprise) with this module installed and updated</li>
+      <li>Public HTTPS URL (example: <code>https://your-domain.com</code>)</li>
+      <li>Correct <code>dbfilter</code> if you host multiple databases</li>
+      <li>Claude account with access to <b>Connectors</b></li>
+      <li>An <b>internal</b> Odoo user (portal users cannot authorize MCP)</li>
+    </ul>
+  </div>
+</section>
 
-    <h4>1) Open Connectors</h4>
-    <p>Claude → Settings → Customize → <b>Connectors</b> → click <b>Add</b>.</p>
-    <div class="oe_demo oe_screenshot"><img src="cl1.png" alt="Claude Connectors menu"/></div>
-
-    <h4>2) Add a custom connector</h4>
-    <p>Choose <b>Add custom connector</b>.</p>
-    <div class="oe_demo oe_screenshot"><img src="cl2.png" alt="Add custom connector"/></div>
-
-    <h4>3) Enter Name + MCP URL</h4>
+<!-- ========== CLAUDE CONNECTION STEPS ========== -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">How to connect Claude — step by step</h3>
     <p>
-      Name: <code>Merkago</code><br/>
-      Remote MCP URL: <code>https://YOUR-DOMAIN/mcp/sse</code>
+      Follow these steps after installing <b>Claude Connector Odoo</b> and setting your
+      Public Base URL in Odoo (Merkago MCP settings).
     </p>
-    <div class="oe_demo oe_screenshot"><img src="cl3.png" alt="Custom connector form"/></div>
 
-    <h4>4) OAuth Client ID (optional) then Add</h4>
+    <h4>Step 1 — Open Claude Connectors</h4>
     <p>
-      OAuth Client ID: <code>merkago-claude-desktop</code> (or leave empty for dynamic registration).<br/>
-      OAuth Client Secret: leave empty. Click <b>Add</b> and authorize with an internal Odoo user.
+      In Claude go to <b>Settings</b> → <b>Customize</b> → <b>Connectors</b>.
+      Click the <b>Add</b> button at the top right.
     </p>
-    <div class="oe_demo oe_screenshot"><img src="cl4.png" alt="OAuth advanced settings"/></div>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl1.png" alt="Step 1 — Claude Connectors menu and Add button"/>
+    </div>
 
-    <h4>5) Choose scopes in Odoo</h4>
-    <p>Merkago MCP → Tokens / Scopes — whitelist models Claude may access (contacts, products…).</p>
-    <div class="oe_demo oe_screenshot"><img src="cl5.png" alt="Select MCP scopes"/></div>
+    <h4>Step 2 — Add a custom connector</h4>
+    <p>
+      From the Add menu, choose <b>Add custom connector</b>
+      (do not use “Browse connectors”).
+    </p>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl2.png" alt="Step 2 — Add custom connector"/>
+    </div>
 
-    <h4>6) Create a new scope (example: Products)</h4>
-    <p>Model <code>product.template</code>, Pack Inventory, Read only recommended. Leave Extra Domain empty for products.</p>
-    <div class="oe_demo oe_screenshot"><img src="cl6.png" alt="Create MCP scope"/></div>
+    <h4>Step 3 — Name and remote MCP URL</h4>
+    <p>Fill the form as follows:</p>
+    <ul>
+      <li><b>Name</b>: <code>Merkago</code> (or any label you prefer)</li>
+      <li><b>Remote MCP server URL</b>: <code>https://YOUR-DOMAIN/mcp/sse</code></li>
+    </ul>
+    <p>
+      <b>Important:</b> use a single <code>https://</code> and forward slashes
+      <code>/</code> only. Example: <code>https://merkago.net/mcp/sse</code>
+    </p>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl3.png" alt="Step 3 — Custom connector Name and URL"/>
+    </div>
+
+    <h4>Step 4 — OAuth settings and authorize</h4>
+    <ul>
+      <li><b>OAuth Client ID</b> (recommended): <code>merkago-claude-desktop</code>
+          — or leave empty to use Dynamic Client Registration</li>
+      <li><b>OAuth Client Secret</b>: leave empty</li>
+      <li>Click <b>Add</b></li>
+      <li>Claude opens the Merkago login page → sign in with an <b>internal Odoo user</b> → Authorize</li>
+    </ul>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl4.png" alt="Step 4 — OAuth Client ID and Add"/>
+    </div>
+    <p>When connected, Claude tools from this module appear under the connector permissions.</p>
+
+    <h4>Step 5 — Whitelist models (scopes) in Odoo</h4>
+    <p>
+      In Odoo open <b>Merkago MCP → Tokens / Scopes</b>.
+      Attach only the models Claude is allowed to use (Contacts, Products, Users…).
+      What is not in the whitelist is invisible to Claude.
+    </p>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl5.png" alt="Step 5 — Select MCP scopes on the token"/>
+    </div>
+
+    <h4>Step 6 — Create a scope (example: Products)</h4>
+    <ul>
+      <li><b>Name</b>: Products / Templates</li>
+      <li><b>Model</b>: <code>product.template</code></li>
+      <li><b>Pack</b>: Inventory</li>
+      <li><b>Perm Read</b>: Yes · Write / Create / Unlink: No (recommended at first)</li>
+      <li><b>Extra Domain</b>: leave empty for products
+          (the example <code>[('customer_rank','&gt;',0)]</code> is for contacts only)</li>
+      <li>Save, then link the scope to the Claude token</li>
+    </ul>
+    <div class="oe_demo oe_screenshot">
+      <img src="cl6.png" alt="Step 6 — Create a product scope"/>
+    </div>
   </div>
 </section>
 
 <section class="oe_container">
   <div class="oe_row oe_spaced">
     <h3 class="oe_slogan">Quick test in Claude</h3>
-    <p>Ask Claude to call <code>odoo_list_models</code>, then count <code>product.template</code> with <code>odoo_search_read</code>.</p>
-  </div>
-</section>
-
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Support</h3>
+    <p>In a new Claude chat, ask:</p>
     <p>
-      Author: <b>AKREM.KHELIFI</b> —
-      <a href="https://merkago.net" target="_blank">merkago.net</a><br/>
-      License: OPL-1 · Price: 90.00 USD
+      <i>“Use the Merkago tool odoo_list_models now (not your memory),
+      then count product.template with odoo_search_read.”</i>
+    </p>
+    <p>
+      Keep <b>Safe Mode</b> enabled in production until you explicitly want Claude to create/write records.
     </p>
   </div>
 </section>
+
+<!-- ========== SUPPORT ========== -->
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Support — AKREM.KHELIFI</h3>
+    <p>
+      <b>Email:</b>
+      <a href="mailto:akremkhelifi07@gmail.com">akremkhelifi07@gmail.com</a><br/>
+      <b>WhatsApp:</b>
+      <a href="https://wa.me/21654444373" target="_blank">+216 54 444 373</a><br/>
+      <b>Website:</b>
+      <a href="https://merkago.net" target="_blank">https://merkago.net</a>
+    </p>
+    <p>
+      Need a custom rule (hide cost only on website, stock valuation, PDF reports)?
+      Contact us for a tailored extension.
+    </p>
+    <p>
+      License: <b>OPL-1</b> · Price: <b>90.00 USD</b>
+    </p>
+  </div>
+</section>
+
 </body>
 </html>
