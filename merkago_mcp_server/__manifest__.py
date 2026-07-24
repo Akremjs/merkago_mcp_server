@@ -23,6 +23,17 @@ Author: AKREM.KHELIFI — merkago.net
     "license": "OPL-1",
     "price": 90.00,
     "currency": "USD",
+    "images": [
+        "static/description/main_screenshot.png",
+        "static/description/banner.png",
+        "static/description/icon.png",
+        "static/description/cl1.png",
+        "static/description/cl2.png",
+        "static/description/cl3.png",
+        "static/description/cl4.png",
+        "static/description/cl5.png",
+        "static/description/cl6.png",
+    ],
     "depends": ["mail", "contacts"],
     "data": [
         "security/mcp_security.xml",
