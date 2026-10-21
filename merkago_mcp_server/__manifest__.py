@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Claude Connector Odoo",
-    "version": "17.0.2.0.2",
+    "version": "17.0.2.0.3",
     "category": "Productivity",
     "summary": "Connect Claude to Odoo via native MCP + OAuth",
     "description": """
@@ -21,7 +21,7 @@ Author: AKREM.KHELIFI — merkago.net
     "author": "AKREM.KHELIFI",
     "website": "https://merkago.net",
     "license": "OPL-1",
-    "price": 90.00,
+    "price": 88.42,
     "currency": "USD",
     # Cover / thumbnail for Odoo Apps (official path)
     "images": [
