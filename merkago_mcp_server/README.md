@@ -9,4 +9,4 @@ Native MCP server for Claude Desktop / Claude.ai with OAuth 2.1 + PKCE.
 
 Module Odoo **20.0** — adaptations : vues `list`, `res.groups.privilege`, `models.Constraint`.
 
-AKREM.KHELIFI — https://merkago.net · OPL-1 · 90.00 USD
+AKREM.KHELIFI — https://merkago.net · OPL-1 · 88.42 USD

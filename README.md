@@ -19,7 +19,7 @@ Serveur MCP natif dans **Odoo Community** pour **Claude Desktop** (OAuth 2.1 + P
 
 ## Prix / licence
 
-- **90.00 USD** · **OPL-1** (part Odoo Apps incluse)
+- **88.42 USD** · **OPL-1** (part Odoo Apps incluse)
 - Auteur : **AKREM.KHELIFI** — [merkago.net](https://merkago.net)
 
 ## Notes Odoo 20

@@ -21,7 +21,7 @@ Author: AKREM.KHELIFI — merkago.net
     "author": "AKREM.KHELIFI",
     "website": "https://merkago.net",
     "license": "OPL-1",
-    "price": 90.00,
+    "price": 88.42,
     "currency": "USD",
     # Cover / thumbnail for Odoo Apps (official path)
     "images": [
