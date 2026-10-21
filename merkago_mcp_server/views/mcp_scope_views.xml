@@ -4,7 +4,7 @@
         <field name="name">merkago.mcp.scope.tree</field>
         <field name="model">merkago.mcp.scope</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="model_name"/>
@@ -14,7 +14,7 @@
                 <field name="perm_create"/>
                 <field name="perm_unlink"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -52,6 +52,6 @@
     <record id="action_mcp_scope" model="ir.actions.act_window">
         <field name="name">Scopes</field>
         <field name="res_model">merkago.mcp.scope</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

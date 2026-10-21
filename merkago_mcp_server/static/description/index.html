@@ -1,210 +1,583 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Claude Connector Odoo</title>
-</head>
-<body>
+<section style="margin:0;padding:0;background:#ffffff;color:#1a1a1a;font-family:Arial,Helvetica,sans-serif;">
 
-<!-- ========== HERO ========== -->
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h2 class="oe_slogan">Claude Connector Odoo</h2>
-    <h3 class="oe_slogan">Bring Claude AI into your Odoo ERP — securely, natively, in minutes</h3>
-    <div class="oe_demo oe_screenshot">
-      <img src="banner.png" alt="Claude Connector Odoo — Claude connected to Odoo via MCP"/>
-    </div>
-  </div>
+  <img src="banner.png" alt="Claude Connector Odoo — Merkago MCP"
+       style="display:block;width:100%;height:auto;border-radius:10px 10px 0 0;"/>
+
+  <!-- HERO -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E8F0F2" style="width:100%;background-color:#E8F0F2;border:2px solid #0B3D4A;">
+    <tr>
+      <td bgcolor="#E8F0F2" style="background-color:#E8F0F2;padding:36px 24px 40px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:980px;margin:0 auto;">
+          <tr>
+            <td style="padding-bottom:20px;vertical-align:middle;">
+              <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;">
+                <tr>
+                  <td bgcolor="#ffffff" style="background-color:#ffffff;padding:10px 16px;">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-right:12px;vertical-align:middle;">
+                          <img src="icon.png" alt="Merkago" width="42" height="42" style="display:block;border-radius:8px;"/>
+                        </td>
+                        <td style="vertical-align:middle;">
+                          <div style="font-size:18px;font-weight:800;color:#0B3D4A;line-height:1.1;">Merkago</div>
+                          <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#136F63;">TECHNOLOGY</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <div style="margin-top:12px;font-size:13px;font-weight:800;color:#136F63;">
+                &#9679; Last Updated : 21 OCT 2026 (v20.0 / 19.0 / 18.0 / 17.0)
+              </div>
+            </td>
+            <td align="right" style="padding-bottom:20px;text-align:right;vertical-align:top;">
+              <div style="font-size:18px;font-weight:800;color:#0B3D4A;">OPL-1</div>
+              <div style="font-size:13px;font-weight:800;color:#1a1a1a;">Community 17-20</div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center" style="text-align:center;padding:8px 0 0;">
+              <h1 style="margin:0 0 16px;font-size:34px;line-height:1.2;font-weight:800;color:#0B3D4A;">
+                Claude Connector Odoo
+              </h1>
+              <p style="margin:0 auto;max-width:820px;font-size:17px;line-height:1.65;font-weight:700;color:#1a1a1a;">
+                Connectez <strong>Claude Desktop</strong> et <strong>Claude.ai</strong> &agrave; votre ERP Odoo
+                via un serveur <strong>MCP natif</strong>&nbsp;: lister les mod&egrave;les, rechercher, lire,
+                et (si vous l&rsquo;autorisez) cr&eacute;er ou modifier des documents m&eacute;tier &mdash; en langage naturel.
+              </p>
+              <p style="margin:14px auto 0;max-width:720px;font-size:16px;line-height:1.5;font-weight:800;color:#0B3D4A;">
+                OAuth 2.1 + PKCE, whitelist de mod&egrave;les, Safe Mode, quotas et journal d&rsquo;audit &mdash; sans middleware externe.
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="10" border="0" style="max-width:920px;margin:28px auto 0;">
+          <tr>
+            <td width="25%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:14px 10px;text-align:center;">
+              <div style="font-size:14px;line-height:1.35;font-weight:800;color:#0B3D4A;">MCP natif<br/>dans Odoo</div>
+            </td>
+            <td width="25%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:14px 10px;text-align:center;">
+              <div style="font-size:14px;line-height:1.35;font-weight:800;color:#0B3D4A;">OAuth 2.1<br/>+ PKCE</div>
+            </td>
+            <td width="25%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:14px 10px;text-align:center;">
+              <div style="font-size:14px;line-height:1.35;font-weight:800;color:#0B3D4A;">Safe Mode<br/>&amp; scopes</div>
+            </td>
+            <td width="25%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:14px 10px;text-align:center;">
+              <div style="font-size:14px;line-height:1.35;font-weight:800;color:#0B3D4A;">Audit<br/>&amp; quotas</div>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align:center;margin-top:28px;">
+          <a href="https://wa.me/21654444373?text=Bonjour%2C%20je%20souhaite%20une%20demo%20Claude%20Connector%20Odoo"
+             style="display:inline-block;margin:6px;padding:14px 24px;background-color:#25D366;color:#06281a;text-decoration:none;font-size:16px;font-weight:800;border:2px solid #0B3D4A;">
+            Demander une d&eacute;mo WhatsApp
+          </a>
+          <a href="mailto:akremkhelifi07@gmail.com?subject=Demo%20Claude%20Connector%20Odoo"
+             style="display:inline-block;margin:6px;padding:14px 24px;background-color:#D4A017;color:#0B3D4A;text-decoration:none;font-size:16px;font-weight:800;border:2px solid #0B3D4A;">
+            Demander une d&eacute;mo par e-mail
+          </a>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- POURQUOI -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 24px 36px;">
+        <div style="max-width:860px;margin:0 auto;">
+          <h2 style="margin:0 0 10px;text-align:center;font-size:32px;font-weight:800;color:#0B3D4A;">
+            Pourquoi choisir Claude Connector Odoo&nbsp;?
+          </h2>
+          <p style="margin:0 auto 24px;max-width:720px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            Un script fragile ou un bridge externe expose votre base. Ce module int&egrave;gre MCP <em>dans</em> Odoo, avec des contr&ocirc;les que vous ma&icirc;trisez.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            &#10003;&nbsp; <strong>Natif &amp; fiable</strong>&nbsp;: endpoints <code>/mcp/sse</code>, <code>/mcp/messages</code>, <code>/mcp/health</code> &mdash; aucun serveur bridge &agrave; maintenir.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            &#10003;&nbsp; <strong>S&eacute;curit&eacute; entreprise</strong>&nbsp;: OAuth 2.1 / PKCE (&laquo;&nbsp;Sign in with Odoo&nbsp;&raquo;), scopes par mod&egrave;le, Safe Mode (bloque les &eacute;critures), quotas journaliers, audit complet.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            &#10003;&nbsp; <strong>Pens&eacute; pour Claude</strong>&nbsp;: Connectors Claude (MCP distant), Streamable HTTP + SSE classique.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            &#10003;&nbsp; <strong>Whitelist stricte</strong>&nbsp;: seuls les mod&egrave;les autoris&eacute;s (Contacts, Produits, Ventes&hellip;) sont visibles par Claude.
+          </p>
+          <p style="margin:0;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            &#10003;&nbsp; <strong>Id&eacute;al consultants &amp; PME</strong>&nbsp;: assistant Claude sur l&rsquo;ERP sans exposer toute la base.
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- FONCTIONNALITES -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E8F0F2" style="width:100%;background-color:#E8F0F2;">
+    <tr>
+      <td bgcolor="#E8F0F2" style="background-color:#E8F0F2;padding:48px 20px 36px;">
+        <h2 style="margin:0 0 8px;text-align:center;font-size:32px;font-weight:800;color:#0B3D4A;">
+          Fonctionnalit&eacute;s cl&eacute;s
+        </h2>
+        <p style="margin:0 auto 24px;max-width:720px;text-align:center;font-size:15px;line-height:1.55;font-weight:600;color:#1a1a1a;">
+          Tout ce dont vous avez besoin pour brancher Claude sur Odoo en production.
+        </p>
+        <table width="100%" cellpadding="0" cellspacing="10" border="0" style="max-width:980px;margin:0 auto;">
+          <tr>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:16px;vertical-align:top;">
+              <div style="font-size:15px;font-weight:800;color:#136F63;margin-bottom:8px;">SERVEUR MCP</div>
+              <div style="font-size:15px;line-height:1.55;font-weight:700;color:#0B3D4A;">
+                /mcp/health<br/>
+                /mcp/sse<br/>
+                /mcp/messages<br/>
+                Streamable HTTP + SSE
+              </div>
+            </td>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:16px;vertical-align:top;">
+              <div style="font-size:15px;font-weight:800;color:#136F63;margin-bottom:8px;">AUTH &amp; ACC&Egrave;S</div>
+              <div style="font-size:15px;line-height:1.55;font-weight:700;color:#0B3D4A;">
+                OAuth 2.1 + PKCE<br/>
+                Dynamic Client Registration<br/>
+                Client ID statique support&eacute;<br/>
+                Bearer tokens (legacy)
+              </div>
+            </td>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:16px;vertical-align:top;">
+              <div style="font-size:15px;font-weight:800;color:#136F63;margin-bottom:8px;">GOUVERNANCE</div>
+              <div style="font-size:15px;line-height:1.55;font-weight:700;color:#0B3D4A;">
+                Scopes / whitelist<br/>
+                Safe Mode (no write)<br/>
+                Quotas journaliers<br/>
+                Journal d&rsquo;audit
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- OUTILS MCP -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 20px 36px;">
+        <h2 style="margin:0 0 24px;text-align:center;font-size:32px;font-weight:800;color:#0B3D4A;">
+          Outils MCP expos&eacute;s &agrave; Claude
+        </h2>
+        <table width="100%" cellpadding="0" cellspacing="10" border="0" style="max-width:980px;margin:0 auto;">
+          <tr>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_list_models</div>
+            </td>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_describe_model</div>
+            </td>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_search_read</div>
+            </td>
+          </tr>
+          <tr>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_read</div>
+            </td>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_create / odoo_write</div>
+            </td>
+            <td width="33%" bgcolor="#DCE8F5" style="background-color:#DCE8F5;border:1px solid #B8C9DC;border-radius:6px;padding:16px;">
+              <div style="font-size:15px;font-weight:800;color:#0B3D4A;">odoo_company_context</div>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:20px auto 0;max-width:780px;text-align:center;font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+          Packs de scopes&nbsp;: Contacts, Inventory, Sales, Accounting, Custom &mdash; multi-soci&eacute;t&eacute; conscient.
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- COMPARAISON -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#DCE8F5" style="width:100%;background-color:#DCE8F5;">
+    <tr>
+      <td bgcolor="#DCE8F5" style="background-color:#DCE8F5;padding:48px 20px;">
+        <div style="max-width:860px;margin:0 auto;">
+          <h2 style="margin:0 0 18px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            Avantage concurrentiel
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;">
+            <tr>
+              <td width="40%" bgcolor="#0B3D4A" style="background-color:#0B3D4A;padding:12px 14px;font-size:14px;font-weight:800;color:#ffffff;">Crit&egrave;re</td>
+              <td width="30%" bgcolor="#0B3D4A" style="background-color:#0B3D4A;padding:12px 14px;font-size:14px;font-weight:800;color:#ffffff;">Claude Connector</td>
+              <td width="30%" bgcolor="#0B3D4A" style="background-color:#0B3D4A;padding:12px 14px;font-size:14px;font-weight:800;color:#ffffff;">Scripts / bridge</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 14px;font-size:14px;font-weight:700;color:#1a1a1a;border-bottom:1px solid #B8C9DC;">H&eacute;bergement MCP</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:800;color:#136F63;border-bottom:1px solid #B8C9DC;">Natif dans Odoo</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:600;color:#555555;border-bottom:1px solid #B8C9DC;">Serveur externe</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 14px;font-size:14px;font-weight:700;color:#1a1a1a;border-bottom:1px solid #B8C9DC;">Auth moderne</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:800;color:#136F63;border-bottom:1px solid #B8C9DC;">OAuth 2.1 + PKCE</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:600;color:#555555;border-bottom:1px solid #B8C9DC;">Souvent API key seule</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 14px;font-size:14px;font-weight:700;color:#1a1a1a;border-bottom:1px solid #B8C9DC;">Contr&ocirc;le des mod&egrave;les</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:800;color:#136F63;border-bottom:1px solid #B8C9DC;">Whitelist + Safe Mode</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:600;color:#555555;border-bottom:1px solid #B8C9DC;">Souvent tout ou rien</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 14px;font-size:14px;font-weight:700;color:#1a1a1a;">Audit &amp; quotas</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:800;color:#136F63;">Oui</td>
+              <td style="padding:12px 14px;font-size:14px;font-weight:600;color:#555555;">Rare / &agrave; coder</td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- INSTALLATION -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 24px;">
+        <div style="max-width:820px;margin:0 auto;">
+          <h2 style="margin:0 0 10px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            Installation &amp; pr&eacute;requis
+          </h2>
+          <p style="margin:0 auto 22px;max-width:700px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            5 minutes pour installer, puis configuration Claude en 6 &eacute;tapes illustr&eacute;es.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            <strong>1.</strong> Installez le module <em>Claude Connector Odoo</em> (<code>merkago_mcp_server</code>) et mettez-le &agrave; jour.
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            <strong>2.</strong> Dans Odoo&nbsp;: <em>Merkago MCP &rarr; Configuration</em> &mdash; renseignez l&rsquo;<strong>URL publique HTTPS</strong>
+            (ex. <code>https://votre-domaine.com</code>).
+          </p>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            <strong>3.</strong> Si multi-bases&nbsp;: v&eacute;rifiez <code>dbfilter</code>. Compte Claude avec acc&egrave;s <strong>Connectors</strong> requis.
+          </p>
+          <p style="margin:0;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
+            <strong>4.</strong> Utilisez un utilisateur Odoo <strong>interne</strong> (les utilisateurs portail ne peuvent pas autoriser MCP).
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 1 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#DCE8F5" style="width:100%;background-color:#DCE8F5;">
+    <tr>
+      <td bgcolor="#DCE8F5" style="background-color:#DCE8F5;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 1 &mdash; Ouvrir Claude Connectors
+          </h2>
+          <p style="margin:0 auto 22px;max-width:720px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            Dans Claude&nbsp;: <strong>Settings &rarr; Customize &rarr; Connectors</strong>, puis cliquez sur <strong>Add</strong>.
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px;">
+                <img src="cl1.png" alt="Etape 1 — Claude Connectors" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">Menu Connectors + bouton Add</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 2 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 2 &mdash; Add custom connector
+          </h2>
+          <p style="margin:0 auto 22px;max-width:720px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            Choisissez <strong>Add custom connector</strong> (ne pas utiliser &laquo;&nbsp;Browse connectors&nbsp;&raquo;).
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F4F7FB" style="background-color:#F4F7FB;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#F4F7FB" style="background-color:#F4F7FB;padding:18px;">
+                <img src="cl2.png" alt="Etape 2 — Add custom connector" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">Ajout d&rsquo;un connecteur personnalis&eacute;</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 3 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#DCE8F5" style="width:100%;background-color:#DCE8F5;">
+    <tr>
+      <td bgcolor="#DCE8F5" style="background-color:#DCE8F5;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 3 &mdash; Nom et URL MCP
+          </h2>
+          <p style="margin:0 auto 12px;max-width:720px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            <strong>Name</strong>&nbsp;: <code>Merkago</code> &nbsp;&middot;&nbsp;
+            <strong>Remote MCP server URL</strong>&nbsp;: <code>https://YOUR-DOMAIN/mcp/sse</code>
+          </p>
+          <p style="margin:0 auto 22px;max-width:720px;text-align:center;font-size:14px;line-height:1.5;font-weight:700;color:#0B3D4A;">
+            Important&nbsp;: un seul <code>https://</code> et des slashs <code>/</code> uniquement.
+            Exemple&nbsp;: <code>https://merkago.net/mcp/sse</code>
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px;">
+                <img src="cl3.png" alt="Etape 3 — Name and URL" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">Formulaire Name + URL MCP</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 4 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 4 &mdash; OAuth et autorisation
+          </h2>
+          <p style="margin:0 auto 22px;max-width:740px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            <strong>OAuth Client ID</strong> recommand&eacute;&nbsp;: <code>merkago-claude-desktop</code>
+            (ou vide pour Dynamic Client Registration). <strong>Client Secret</strong>&nbsp;: laisser vide.
+            Puis <strong>Add</strong> &rarr; connexion utilisateur interne Odoo &rarr; Authorize.
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F4F7FB" style="background-color:#F4F7FB;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#F4F7FB" style="background-color:#F4F7FB;padding:18px;">
+                <img src="cl4.png" alt="Etape 4 — OAuth" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">OAuth Client ID + Add</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 5 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#DCE8F5" style="width:100%;background-color:#DCE8F5;">
+    <tr>
+      <td bgcolor="#DCE8F5" style="background-color:#DCE8F5;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 5 &mdash; Whitelist (scopes) dans Odoo
+          </h2>
+          <p style="margin:0 auto 22px;max-width:720px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            Menu <strong>Merkago MCP &rarr; Tokens / Scopes</strong>&nbsp;: attachez uniquement les mod&egrave;les autoris&eacute;s.
+            Ce qui n&rsquo;est pas dans la whitelist reste invisible pour Claude.
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px;">
+                <img src="cl5.png" alt="Etape 5 — Scopes" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">S&eacute;lection des scopes sur le token</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- DEMO STEP 6 -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 20px 36px;">
+        <div style="max-width:960px;margin:0 auto;">
+          <h2 style="margin:0 0 12px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            &Eacute;tape 6 &mdash; Cr&eacute;er un scope (ex. Produits)
+          </h2>
+          <p style="margin:0 auto 22px;max-width:740px;text-align:center;font-size:16px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+            Name&nbsp;: Products / Templates &nbsp;&middot;&nbsp; Model&nbsp;: <code>product.template</code> &nbsp;&middot;&nbsp; Pack&nbsp;: Inventory<br/>
+            Perm Read&nbsp;: Oui &nbsp;&middot;&nbsp; Write / Create / Unlink&nbsp;: Non (recommand&eacute; au d&eacute;but) &nbsp;&middot;&nbsp; Extra Domain&nbsp;: vide pour les produits.
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F4F7FB" style="background-color:#F4F7FB;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#F4F7FB" style="background-color:#F4F7FB;padding:18px;">
+                <img src="cl6.png" alt="Etape 6 — Scope produits" style="display:block;width:100%;height:auto;border:1px solid #B8C9DC;"/>
+                <p style="margin:12px 0 0;text-align:center;font-size:14px;font-weight:700;color:#0B3D4A;">Formulaire de cr&eacute;ation de scope</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- TEST RAPIDE -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E8F0F2" style="width:100%;background-color:#E8F0F2;">
+    <tr>
+      <td bgcolor="#E8F0F2" style="background-color:#E8F0F2;padding:48px 24px;">
+        <div style="max-width:820px;margin:0 auto;">
+          <h2 style="margin:0 0 18px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
+            Test rapide dans Claude
+          </h2>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;margin-bottom:18px;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:22px 24px;">
+                <div style="font-size:15px;line-height:1.7;font-weight:600;color:#1a1a1a;font-style:italic;">
+                  &laquo;&nbsp;Use the Merkago tool odoo_list_models now (not your memory),
+                  then count product.template with odoo_search_read.&nbsp;&raquo;
+                </div>
+              </td>
+            </tr>
+          </table>
+          <p style="margin:0;text-align:center;font-size:16px;line-height:1.7;font-weight:700;color:#0B3D4A;">
+            Gardez le <strong>Safe Mode</strong> activ&eacute; en production tant que vous ne voulez pas que Claude cr&eacute;e / &eacute;crive des enregistrements.
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- AIDE -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;background-color:#ffffff;border-top:3px solid #0B3D4A;border-bottom:3px solid #0B3D4A;">
+    <tr>
+      <td bgcolor="#ffffff" style="background-color:#ffffff;padding:48px 20px;text-align:center;">
+        <h2 style="margin:0 0 10px;font-size:30px;font-weight:800;color:#0B3D4A;">Besoin d&rsquo;aide&nbsp;?</h2>
+        <p style="margin:0 0 24px;font-size:16px;font-weight:800;color:#1a1a1a;">D&eacute;mo gratuite &mdash; r&eacute;ponse sous 24 h.</p>
+        <table width="100%" cellpadding="0" cellspacing="12" border="0" style="max-width:900px;margin:0 auto;">
+          <tr>
+            <td width="33%" bgcolor="#E8F0F2" style="background-color:#E8F0F2;border:2px solid #0B3D4A;padding:20px;text-align:left;vertical-align:top;">
+              <div style="font-size:12px;font-weight:800;color:#136F63;margin-bottom:6px;">DEMO</div>
+              <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:10px;">WhatsApp</div>
+              <a href="https://wa.me/21654444373" style="font-size:15px;font-weight:800;color:#0B3D4A;text-decoration:underline;">+216 54 444 373</a>
+            </td>
+            <td width="33%" bgcolor="#E8F0F2" style="background-color:#E8F0F2;border:2px solid #0B3D4A;padding:20px;text-align:left;vertical-align:top;">
+              <div style="font-size:12px;font-weight:800;color:#136F63;margin-bottom:6px;">SUPPORT</div>
+              <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:10px;">E-mail</div>
+              <a href="mailto:akremkhelifi07@gmail.com" style="font-size:13px;font-weight:800;color:#0B3D4A;text-decoration:underline;">akremkhelifi07@gmail.com</a>
+            </td>
+            <td width="33%" bgcolor="#E8F0F2" style="background-color:#E8F0F2;border:2px solid #0B3D4A;padding:20px;text-align:left;vertical-align:top;">
+              <div style="font-size:12px;font-weight:800;color:#136F63;margin-bottom:6px;">SITE</div>
+              <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:10px;">Merkago</div>
+              <a href="https://www.merkago.net" style="font-size:15px;font-weight:800;color:#0B3D4A;text-decoration:underline;">www.merkago.net</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- FAQ -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F4F7FB" style="width:100%;background-color:#F4F7FB;">
+    <tr>
+      <td bgcolor="#F4F7FB" style="background-color:#F4F7FB;padding:48px 20px;">
+        <div style="max-width:780px;margin:0 auto;">
+          <h2 style="margin:0 0 22px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">Questions fr&eacute;quentes</h2>
+
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;margin-bottom:12px;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px 20px;border-left:5px solid #0B3D4A;">
+                <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:8px;">Quelle URL mettre dans Claude&nbsp;?</div>
+                <div style="font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+                  <code>https://VOTRE-DOMAINE/mcp/sse</code> &mdash; HTTPS public obligatoire. Exemple&nbsp;: <code>https://merkago.net/mcp/sse</code>.
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;margin-bottom:12px;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px 20px;border-left:5px solid #0B3D4A;">
+                <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:8px;">Claude peut-il modifier ma base&nbsp;?</div>
+                <div style="font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+                  Uniquement si vous d&eacute;sactivez le Safe Mode <em>et</em> autorisez Write/Create sur les scopes.
+                  Par d&eacute;faut, restez en lecture seule.
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;margin-bottom:12px;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px 20px;border-left:5px solid #0B3D4A;">
+                <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:8px;">Compatible Community&nbsp;?</div>
+                <div style="font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+                  Oui&nbsp;: Odoo Community &amp; Enterprise 17.0, 18.0, 19.0 et 20.0. D&eacute;pendances&nbsp;: Contacts, Discuss.
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;margin-bottom:12px;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px 20px;border-left:5px solid #0B3D4A;">
+                <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:8px;">OAuth Client ID&nbsp;?</div>
+                <div style="font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">
+                  Recommand&eacute;&nbsp;: <code>merkago-claude-desktop</code>. Sinon laissez vide pour Dynamic Client Registration.
+                  Client Secret&nbsp;: toujours vide.
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;">
+            <tr>
+              <td bgcolor="#ffffff" style="background-color:#ffffff;padding:18px 20px;border-left:5px solid #0B3D4A;">
+                <div style="font-size:17px;font-weight:800;color:#0B3D4A;margin-bottom:8px;">Licence&nbsp;?</div>
+                <div style="font-size:15px;line-height:1.6;font-weight:600;color:#1a1a1a;">OPL-1 &mdash; une licence par base de production. Redistribution interdite.</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CONTACT -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E8F0F2" style="width:100%;background-color:#E8F0F2;">
+    <tr>
+      <td bgcolor="#E8F0F2" style="background-color:#E8F0F2;padding:44px 20px 52px;text-align:center;">
+        <h2 style="margin:0 0 8px;font-size:28px;font-weight:800;color:#0B3D4A;">Contact</h2>
+        <p style="margin:0 0 24px;font-size:15px;font-weight:700;color:#1a1a1a;">Scannez un QR ou &eacute;crivez-nous.</p>
+        <table width="100%" cellpadding="0" cellspacing="12" border="0" style="max-width:700px;margin:0 auto 24px;">
+          <tr>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;padding:18px 10px;">
+              <a href="https://wa.me/21654444373" style="text-decoration:none;color:#0B3D4A;">
+                <img src="qr_whatsapp.png" alt="QR WhatsApp" width="96" height="96" style="display:block;margin:0 auto 8px;"/>
+                <div style="font-size:14px;font-weight:800;color:#128C7E;">WhatsApp</div>
+                <div style="font-size:13px;font-weight:800;">+216 54 444 373</div>
+              </a>
+            </td>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;padding:18px 10px;">
+              <a href="mailto:akremkhelifi07@gmail.com" style="text-decoration:none;color:#0B3D4A;">
+                <img src="qr_email.png" alt="QR Email" width="96" height="96" style="display:block;margin:0 auto 8px;"/>
+                <div style="font-size:14px;font-weight:800;color:#136F63;">E-mail</div>
+                <div style="font-size:11px;font-weight:800;">akremkhelifi07@gmail.com</div>
+              </a>
+            </td>
+            <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #B8C9DC;padding:18px 10px;">
+              <a href="https://www.merkago.net" style="text-decoration:none;color:#0B3D4A;">
+                <img src="qr_website.png" alt="QR Site" width="96" height="96" style="display:block;margin:0 auto 8px;"/>
+                <div style="font-size:14px;font-weight:800;color:#B8860B;">Site web</div>
+                <div style="font-size:13px;font-weight:800;">www.merkago.net</div>
+              </a>
+            </td>
+          </tr>
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="max-width:480px;margin:0 auto;background-color:#ffffff;border:2px solid #0B3D4A;">
+          <tr>
+            <td bgcolor="#ffffff" style="background-color:#ffffff;padding:22px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;color:#0B3D4A;">D&eacute;mo gratuite &middot; Support sur demande</div>
+              <div style="margin-top:8px;font-size:13px;font-weight:700;color:#333333;">Auteur&nbsp;: AKREM.KHELIFI</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
 </section>
-
-<!-- ========== PROFESSIONAL OVERVIEW ========== -->
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">What is Claude Connector Odoo?</h3>
-    <p class="oe_mt32">
-      <b>Claude Connector Odoo</b> is a production-ready <b>MCP (Model Context Protocol)</b> server
-      embedded inside Odoo Community. It lets <b>Claude Desktop</b> and <b>Claude.ai</b> talk
-      directly to your ERP: list models, search records, read data, and (when you allow it)
-      create or update business documents — all through natural language.
-    </p>
-    <p>
-      Unlike fragile scripts or external middlewares, the connector runs <b>natively in Odoo</b>.
-      Authentication uses modern <b>OAuth 2.1 + PKCE</b> (Sign in with Odoo). Access is controlled
-      by a <b>model whitelist (scopes)</b>, <b>Safe Mode</b>, daily quotas and a full <b>audit log</b>.
-      You decide exactly what Claude can see and do.
-    </p>
-    <p>
-      Ideal for consultants, SMEs and technical teams who want Claude as a secure assistant
-      on top of Contacts, Products, Sales, Accounting and more — without exposing the whole database.
-    </p>
-  </div>
-</section>
-
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Why choose this module?</h3>
-    <div class="oe_span4">
-      <h4>Native &amp; reliable</h4>
-      <p>MCP endpoints live inside Odoo (<code>/mcp/sse</code>). No fragile bridge server to maintain.</p>
-    </div>
-    <div class="oe_span4">
-      <h4>Enterprise-grade security</h4>
-      <p>OAuth 2.1 / PKCE, per-model scopes, Safe Mode (blocks writes), quotas and audit trail.</p>
-    </div>
-    <div class="oe_span4">
-      <h4>Built for Claude</h4>
-      <p>Works with Claude Connectors (custom remote MCP). Streamable HTTP + classic SSE supported.</p>
-    </div>
-  </div>
-</section>
-
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Key features</h3>
-    <ul>
-      <li>Native MCP server: <code>/mcp/health</code>, <code>/mcp/sse</code>, <code>/mcp/messages</code></li>
-      <li>OAuth 2.1 + PKCE + Dynamic Client Registration (static Client ID supported)</li>
-      <li>Legacy Bearer tokens still available</li>
-      <li>Tools: <code>odoo_list_models</code>, <code>odoo_describe_model</code>, <code>odoo_search_read</code>,
-          <code>odoo_read</code>, <code>odoo_create</code>, <code>odoo_write</code>, <code>odoo_company_context</code></li>
-      <li>Scope packs (Contacts, Inventory, Sales, Accounting, Custom)</li>
-      <li>Safe Mode, multi-company aware domain, daily quota, audit log</li>
-      <li>Compatible with Odoo <b>17.0 / 18.0 / 19.0</b></li>
-      <li>License <b>OPL-1</b> · Price <b>90 USD</b></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ========== PREREQUISITES ========== -->
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Prerequisites</h3>
-    <ul>
-      <li>Odoo Community (or Enterprise) with this module installed and updated</li>
-      <li>Public HTTPS URL (example: <code>https://your-domain.com</code>)</li>
-      <li>Correct <code>dbfilter</code> if you host multiple databases</li>
-      <li>Claude account with access to <b>Connectors</b></li>
-      <li>An <b>internal</b> Odoo user (portal users cannot authorize MCP)</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ========== CLAUDE CONNECTION STEPS ========== -->
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">How to connect Claude — step by step</h3>
-    <p>
-      Follow these steps after installing <b>Claude Connector Odoo</b> and setting your
-      Public Base URL in Odoo (Merkago MCP settings).
-    </p>
-
-    <h4>Step 1 — Open Claude Connectors</h4>
-    <p>
-      In Claude go to <b>Settings</b> → <b>Customize</b> → <b>Connectors</b>.
-      Click the <b>Add</b> button at the top right.
-    </p>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl1.png" alt="Step 1 — Claude Connectors menu and Add button"/>
-    </div>
-
-    <h4>Step 2 — Add a custom connector</h4>
-    <p>
-      From the Add menu, choose <b>Add custom connector</b>
-      (do not use “Browse connectors”).
-    </p>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl2.png" alt="Step 2 — Add custom connector"/>
-    </div>
-
-    <h4>Step 3 — Name and remote MCP URL</h4>
-    <p>Fill the form as follows:</p>
-    <ul>
-      <li><b>Name</b>: <code>Merkago</code> (or any label you prefer)</li>
-      <li><b>Remote MCP server URL</b>: <code>https://YOUR-DOMAIN/mcp/sse</code></li>
-    </ul>
-    <p>
-      <b>Important:</b> use a single <code>https://</code> and forward slashes
-      <code>/</code> only. Example: <code>https://merkago.net/mcp/sse</code>
-    </p>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl3.png" alt="Step 3 — Custom connector Name and URL"/>
-    </div>
-
-    <h4>Step 4 — OAuth settings and authorize</h4>
-    <ul>
-      <li><b>OAuth Client ID</b> (recommended): <code>merkago-claude-desktop</code>
-          — or leave empty to use Dynamic Client Registration</li>
-      <li><b>OAuth Client Secret</b>: leave empty</li>
-      <li>Click <b>Add</b></li>
-      <li>Claude opens the Merkago login page → sign in with an <b>internal Odoo user</b> → Authorize</li>
-    </ul>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl4.png" alt="Step 4 — OAuth Client ID and Add"/>
-    </div>
-    <p>When connected, Claude tools from this module appear under the connector permissions.</p>
-
-    <h4>Step 5 — Whitelist models (scopes) in Odoo</h4>
-    <p>
-      In Odoo open <b>Merkago MCP → Tokens / Scopes</b>.
-      Attach only the models Claude is allowed to use (Contacts, Products, Users…).
-      What is not in the whitelist is invisible to Claude.
-    </p>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl5.png" alt="Step 5 — Select MCP scopes on the token"/>
-    </div>
-
-    <h4>Step 6 — Create a scope (example: Products)</h4>
-    <ul>
-      <li><b>Name</b>: Products / Templates</li>
-      <li><b>Model</b>: <code>product.template</code></li>
-      <li><b>Pack</b>: Inventory</li>
-      <li><b>Perm Read</b>: Yes · Write / Create / Unlink: No (recommended at first)</li>
-      <li><b>Extra Domain</b>: leave empty for products
-          (the example <code>[('customer_rank','&gt;',0)]</code> is for contacts only)</li>
-      <li>Save, then link the scope to the Claude token</li>
-    </ul>
-    <div class="oe_demo oe_screenshot">
-      <img src="cl6.png" alt="Step 6 — Create a product scope"/>
-    </div>
-  </div>
-</section>
-
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Quick test in Claude</h3>
-    <p>In a new Claude chat, ask:</p>
-    <p>
-      <i>“Use the Merkago tool odoo_list_models now (not your memory),
-      then count product.template with odoo_search_read.”</i>
-    </p>
-    <p>
-      Keep <b>Safe Mode</b> enabled in production until you explicitly want Claude to create/write records.
-    </p>
-  </div>
-</section>
-
-<!-- ========== SUPPORT ========== -->
-<section class="oe_container">
-  <div class="oe_row oe_spaced">
-    <h3 class="oe_slogan">Support — AKREM.KHELIFI</h3>
-    <p>
-      <b>Email:</b>
-      <a href="mailto:akremkhelifi07@gmail.com">akremkhelifi07@gmail.com</a><br/>
-      <b>WhatsApp:</b>
-      <a href="https://wa.me/21654444373" target="_blank">+216 54 444 373</a><br/>
-      <b>Website:</b>
-      <a href="https://merkago.net" target="_blank">https://merkago.net</a>
-    </p>
-    <p>
-      Need a custom rule (hide cost only on website, stock valuation, PDF reports)?
-      Contact us for a tailored extension.
-    </p>
-    <p>
-      License: <b>OPL-1</b> · Price: <b>90.00 USD</b>
-    </p>
-  </div>
-</section>
-
-</body>
-</html>

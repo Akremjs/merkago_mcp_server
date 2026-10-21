@@ -39,9 +39,10 @@ class MerkagoMcpOauthClient(models.Model):
         help="Created via RFC 7591 Dynamic Client Registration.",
     )
 
-    _sql_constraints = [
-        ("client_id_uniq", "unique(client_id)", "Client ID must be unique."),
-    ]
+    _client_id_uniq = models.Constraint(
+        "unique(client_id)",
+        "Client ID must be unique.",
+    )
 
     @api.model
     def _hash_secret(self, secret):
