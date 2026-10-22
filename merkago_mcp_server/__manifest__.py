@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Claude Connector Odoo",
-    "version": "19.0.2.0.4",
+    "version": "19.0.2.0.5",
     "category": "Productivity",
     "summary": "Connect Claude to Odoo via native MCP + OAuth",
     "description": """
