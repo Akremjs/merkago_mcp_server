@@ -5,7 +5,9 @@ from html import escape
 from urllib.parse import urlencode
 
 from odoo import http, _
+from odoo.exceptions import AccessDenied
 from odoo.http import request, Response
+from odoo.http.session import authenticate as session_authenticate
 
 _logger = logging.getLogger(__name__)
 
@@ -205,14 +207,29 @@ class MerkagoMcpOauthController(http.Controller):
                     )
             return render()
 
-        # POST: authenticate
-        db = request.db
+        # POST: authenticate (Odoo 20: odoo.http.session.authenticate)
+        credential = {
+            "login": login,
+            "password": password,
+            "type": "password",
+        }
         try:
-            uid = request.session.authenticate(db, login, password)
+            auth_info = session_authenticate(request.session, request.env, credential)
+            uid = auth_info.get("uid") if isinstance(auth_info, dict) else auth_info
+        except AccessDenied:
+            return render(_("Login ou mot de passe incorrect."))
         except Exception:
-            uid = False
+            _logger.exception("MCP OAuth authenticate failed")
+            return render(_("Login ou mot de passe incorrect."))
         if not uid:
             return render(_("Login ou mot de passe incorrect."))
+        if not request.session.uid:
+            return render(
+                _(
+                    "Two-factor authentication is enabled for this user. "
+                    "Disable 2FA for the connector user, or log into Odoo first then retry."
+                )
+            )
         user = request.env["res.users"].sudo().browse(uid)
         if user.share:
             return render(_("Portal users cannot authorize MCP. Use an internal user."))
