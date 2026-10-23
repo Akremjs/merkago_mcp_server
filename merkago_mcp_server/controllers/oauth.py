@@ -23,10 +23,15 @@ def _public_base():
     return engine._public_url() or request.httprequest.host_url.rstrip("/")
 
 
+def _issuer():
+    """Issuer path /mcp so clients load Merkago metadata, not another OAuth app on /."""
+    return "%s/mcp" % _public_base()
+
+
 def _auth_metadata():
     base = _public_base()
     return {
-        "issuer": base,
+        "issuer": _issuer(),
         "authorization_endpoint": "%s/oauth/authorize" % base,
         "token_endpoint": "%s/oauth/token" % base,
         "registration_endpoint": "%s/oauth/register" % base,
@@ -43,8 +48,8 @@ def _auth_metadata():
 def _resource_metadata():
     base = _public_base()
     return {
-        "resource": "%s/mcp" % base,
-        "authorization_servers": [base],
+        "resource": "%s/mcp/sse" % base,
+        "authorization_servers": [_issuer()],
         "bearer_methods_supported": ["header"],
         "scopes_supported": ["mcp"],
         "resource_documentation": "%s/mcp/health" % base,
@@ -144,15 +149,16 @@ class MerkagoMcpOauthController(http.Controller):
     # ---- Authorize ----
     @http.route("/oauth/authorize", type="http", auth="public", methods=["GET", "POST"], csrf=False)
     def oauth_authorize(self, **kwargs):
-        params = {**kwargs}
+        # Query string first: Odoo can drop "state" from kwargs.
+        params = request.httprequest.args.to_dict(flat=True)
         if request.httprequest.method == "POST":
-            # also merge form
-            params.update({k: v for k, v in request.params.items()})
+            params.update(request.httprequest.form.to_dict(flat=True))
+        params.update(kwargs)
 
         client_id = params.get("client_id") or ""
         redirect_uri = params.get("redirect_uri") or ""
         response_type = params.get("response_type") or "code"
-        state = params.get("state") or ""
+        state = params.get("state") or request.httprequest.args.get("state") or ""
         scope = params.get("scope") or "mcp"
         code_challenge = params.get("code_challenge") or ""
         code_challenge_method = params.get("code_challenge_method") or "S256"
@@ -245,6 +251,8 @@ class MerkagoMcpOauthController(http.Controller):
         q = {"code": raw_code}
         if state:
             q["state"] = state
+        else:
+            _logger.warning("MCP OAuth authorize finished without state")
         target = "%s?%s" % (redirect_uri, urlencode(q))
         return request.redirect(target, local=False)
 

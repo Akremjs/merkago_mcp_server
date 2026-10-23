@@ -23,7 +23,7 @@ def _json_response(payload, status=200, headers=None):
 def _www_authenticate():
     engine = request.env["merkago.mcp.engine"].sudo()
     base = engine._public_url() or request.httprequest.host_url.rstrip("/")
-    meta = "%s/.well-known/oauth-protected-resource" % base
+    meta = "%s/.well-known/oauth-protected-resource/mcp/sse" % base
     return 'Bearer realm="mcp", resource_metadata="%s"' % meta
 
 
@@ -65,11 +65,14 @@ class MerkagoMcpController(http.Controller):
     def mcp_health(self, **kwargs):
         engine = request.env["merkago.mcp.engine"].sudo()
         enabled = engine._is_enabled()
+        mod = request.env["ir.module.module"].sudo().search(
+            [("name", "=", "merkago_mcp_server")], limit=1
+        )
         return _json_response(
             {
                 "status": "ok" if enabled else "disabled",
                 "service": "merkago_mcp_server",
-                "version": "17.0.2.0.0",
+                "version": mod.latest_version or "19.0.2.0.7",
                 "phase": "P2",
                 "enabled": enabled,
                 "oauth": True,
