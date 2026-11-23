@@ -205,9 +205,9 @@ class MerkagoMcpOauthAccess(models.Model):
                 "token_prefix": access_raw[:12],
                 "token_hash": Token._hash_token(access_raw),
                 # Default False: missing param means Safe Mode was unchecked in settings.
-                "safe_mode": self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("merkago_mcp.safe_mode", "False")
+                "safe_mode": self.env["merkago.mcp.engine"]._icp(
+                    "merkago_mcp.safe_mode", "False"
+                )
                 == "True",
             }
         )
@@ -256,8 +256,9 @@ class MerkagoMcpOauthAccess(models.Model):
         # issue() snapshots once; without this, Safe Mode stays stuck on the token
         # and newly created scopes never appear until the user re-authorizes.
         if rec.mcp_token_id:
-            icp = self.env["ir.config_parameter"].sudo()
-            safe = icp.get_param("merkago_mcp.safe_mode", "False") == "True"
+            safe = self.env["merkago.mcp.engine"]._icp(
+                "merkago_mcp.safe_mode", "False"
+            ) == "True"
             scopes = self.env["merkago.mcp.scope"].sudo().search([("active", "=", True)])
             vals = {}
             if rec.mcp_token_id.safe_mode != safe:

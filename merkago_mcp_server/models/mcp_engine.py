@@ -37,7 +37,16 @@ class MerkagoMcpEngine(models.AbstractModel):
     _description = "MCP Tool Engine"
 
     def _icp(self, key, default=None):
-        return self.env["ir.config_parameter"].sudo().get_param(key, default)
+        """Return config param as string; compatible with Odoo <=19 get_param and Odoo 20+."""
+        icp = self.env["ir.config_parameter"].sudo()
+        get_param = getattr(icp, "get_param", None)
+        if get_param:
+            return get_param(key, default)
+        # Odoo 20 removed get_param; read raw value (unchecked bools delete the row).
+        rec = icp.search([("key", "=", key)], limit=1)
+        if not rec or rec.value in (False, None):
+            return default
+        return rec.value
 
     def _is_enabled(self):
         return self._icp("merkago_mcp.enabled", "True") == "True"
