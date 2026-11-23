@@ -204,9 +204,10 @@ class MerkagoMcpOauthAccess(models.Model):
                 "user_id": user.id,
                 "token_prefix": access_raw[:12],
                 "token_hash": Token._hash_token(access_raw),
+                # Default False: missing param means Safe Mode was unchecked in settings.
                 "safe_mode": self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("merkago_mcp.safe_mode", "True")
+                .get_param("merkago_mcp.safe_mode", "False")
                 == "True",
             }
         )
@@ -251,6 +252,20 @@ class MerkagoMcpOauthAccess(models.Model):
             return self.browse()
         if rec.expires_at and rec.expires_at < fields.Datetime.now():
             return self.browse()
+        # Keep linked MCP token aligned with current settings / scopes.
+        # issue() snapshots once; without this, Safe Mode stays stuck on the token
+        # and newly created scopes never appear until the user re-authorizes.
+        if rec.mcp_token_id:
+            icp = self.env["ir.config_parameter"].sudo()
+            safe = icp.get_param("merkago_mcp.safe_mode", "False") == "True"
+            scopes = self.env["merkago.mcp.scope"].sudo().search([("active", "=", True)])
+            vals = {}
+            if rec.mcp_token_id.safe_mode != safe:
+                vals["safe_mode"] = safe
+            if scopes and set(rec.mcp_token_id.scope_ids.ids) != set(scopes.ids):
+                vals["scope_ids"] = [(6, 0, scopes.ids)]
+            if vals:
+                rec.mcp_token_id.write(vals)
         return rec
 
     def refresh(self, refresh_raw):

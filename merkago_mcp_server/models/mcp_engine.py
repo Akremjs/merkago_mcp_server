@@ -6,7 +6,16 @@ import time
 
 from odoo import models, _
 from odoo.exceptions import AccessError, UserError
-from odoo.osv import expression
+try:
+    from odoo.osv import expression  # Odoo <= 19
+except ImportError:  # Odoo 20+: osv.expression removed
+    from odoo.fields import Domain
+
+    class expression:  # noqa: N801 - keep expression.AND call sites
+        @staticmethod
+        def AND(domains):
+            return Domain.AND(domains)
+
 
 _logger = logging.getLogger(__name__)
 
@@ -34,9 +43,11 @@ class MerkagoMcpEngine(models.AbstractModel):
         return self._icp("merkago_mcp.enabled", "True") == "True"
 
     def _safe_mode(self, token=None):
+        # Default False: Odoo deletes unchecked boolean config_parameters, so a
+        # default of True would keep Safe Mode stuck on after the user disables it.
         if token and token.safe_mode:
             return True
-        return self._icp("merkago_mcp.safe_mode", "True") == "True"
+        return self._icp("merkago_mcp.safe_mode", "False") == "True"
 
     def _allow_write(self):
         return self._icp("merkago_mcp.allow_write", "False") == "True"
