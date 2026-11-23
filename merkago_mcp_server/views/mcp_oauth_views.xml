@@ -4,13 +4,13 @@
         <field name="name">merkago.mcp.oauth.client.tree</field>
         <field name="model">merkago.mcp.oauth.client</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="client_id"/>
                 <field name="dynamic"/>
                 <field name="token_endpoint_auth_method"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -40,27 +40,27 @@
     <record id="action_mcp_oauth_client" model="ir.actions.act_window">
         <field name="name">OAuth Clients</field>
         <field name="res_model">merkago.mcp.oauth.client</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="view_mcp_oauth_access_tree" model="ir.ui.view">
         <field name="name">merkago.mcp.oauth.access.tree</field>
         <field name="model">merkago.mcp.oauth.access</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="client_id"/>
                 <field name="token_prefix"/>
                 <field name="expires_at"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_mcp_oauth_access" model="ir.actions.act_window">
         <field name="name">OAuth Access Tokens</field>
         <field name="res_model">merkago.mcp.oauth.access</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
     </record>
 </odoo>
