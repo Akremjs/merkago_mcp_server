@@ -99,11 +99,11 @@ class MerkagoMcpEngine(models.AbstractModel):
             "messages_url": "%s/mcp/messages" % base if base else "/mcp/messages",
             "health_url": "%s/mcp/health" % base if base else "/mcp/health",
             "instructions": _(
-                "1) Merkago MCP \u2192 Connecter Claude \u2192 copiez l'URL.\n"
-                "2) Claude Desktop \u2192 Param\u00e8tres \u2192 Connecteurs \u2192 Ajouter.\n"
+                "1) Merkago MCP → Connecter Claude → copiez l'URL.\n"
+                "2) Claude Desktop → Paramètres → Connecteurs → Ajouter.\n"
                 "3) Collez l'URL : %(sse)s\n"
                 "4) Laissez Client ID et Secret vides.\n"
-                "5) Connectez-vous avec votre utilisateur Odoo \u2192 Autoriser."
+                "5) Connectez-vous avec votre utilisateur Odoo → Autoriser."
             )
             % {"sse": sse},
         }
