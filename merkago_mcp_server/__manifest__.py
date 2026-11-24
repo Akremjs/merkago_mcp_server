@@ -1,20 +1,43 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Claude Connector Odoo",
-    "version": "20.0.2.0.12",
+    "version": "20.0.2.0.13",
     "category": "Productivity",
-    "summary": "Connect Claude to Odoo via native MCP + OAuth",
+    "summary": "Connectez Claude à Odoo : MCP natif, OAuth et droits par application",
     "description": """
-Merkago MCP Server (Claude Connector)
-=====================================
+Claude Connector Odoo (Merkago)
+================================
 
-Native MCP server for Claude Desktop / Claude.ai with OAuth 2.1 + PKCE.
+Serveur MCP natif dans Odoo pour Claude Desktop et Claude.ai.
+OAuth 2.1 + PKCE, Safe Mode, droits par modèle, journal d'audit.
 
-* Endpoints /mcp/health, /mcp/sse, /mcp/messages
-* OAuth 2.1 + PKCE + Dynamic Client Registration
-* Bearer token authentication (legacy)
-* Tools: list/describe models, search_read, read, create, write
-* Safe Mode, scopes, audit log
+Installation
+------------
+Copiez le dossier merkago_mcp_server/ dans le chemin addons Odoo
+(serveur, Docker ou dépôt Git Odoo.sh). Redémarrez Odoo, mettez à jour
+la liste des applications, puis installez « Claude Connector Odoo ».
+Le bouton Applications → Importer un module ne charge pas le code Python
+de ce connecteur.
+
+Dépendances : mail, contacts, product.
+
+Connexion Claude
+----------------
+Menu Claude Connector → Connecter Claude.
+La checklist vérifie l'URL HTTPS, le serveur MCP, les droits et l'OAuth.
+Collez l'URL /mcp/sse dans Claude. Laissez Client ID et Secret vides,
+puis autorisez avec un utilisateur interne Odoo.
+
+Droits
+------
+Quatre boutons en un clic : Contacts, Ventes/CRM, Stock, Comptabilité
+(lecture seule ; l'application Odoo doit être installée).
+Pour une autre application : Droits (scopes) → Nouveau → choisir le modèle.
+
+Outils
+------
+Lister, décrire, rechercher, lire, créer, modifier, contexte société.
+Chaque outil peut être masqué. Créer et Modifier restent masqués en Safe Mode.
 
 Author: AKREM.KHELIFI — merkago.net
 """,
