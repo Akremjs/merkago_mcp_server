@@ -29,6 +29,26 @@
                         <field name="public_base_url" placeholder="https://erp.votre-domaine.com"/>
                         <field name="mcp_enabled"/>
                         <field name="mcp_safe_mode"/>
+                        <field name="checklist" readonly="1" nolabel="1" colspan="2"/>
+                    </group>
+
+                    <group string="Droits en un clic">
+                        <div colspan="2">
+                            <button name="action_pack_contacts" type="object" string="Contacts" class="btn-secondary me-2"/>
+                            <button name="action_pack_sales" type="object" string="Ventes / CRM" class="btn-secondary me-2"/>
+                            <button name="action_pack_inventory" type="object" string="Stock" class="btn-secondary me-2"/>
+                            <button name="action_pack_accounting" type="object" string="Comptabilité" class="btn-secondary"/>
+                        </div>
+                    </group>
+
+                    <group string="Outils Claude">
+                        <field name="tool_list"/>
+                        <field name="tool_describe"/>
+                        <field name="tool_search"/>
+                        <field name="tool_read"/>
+                        <field name="tool_create"/>
+                        <field name="tool_write"/>
+                        <field name="tool_company"/>
                     </group>
 
                     <group string="2. URL à coller dans Claude">

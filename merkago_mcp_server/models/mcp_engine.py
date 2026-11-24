@@ -31,6 +31,17 @@ SENSITIVE_FIELDS = {
     "password_crypt",
 }
 
+MCP_TOOL_NAMES = (
+    "odoo_list_models",
+    "odoo_describe_model",
+    "odoo_search_read",
+    "odoo_read",
+    "odoo_create",
+    "odoo_write",
+    "odoo_company_context",
+)
+WRITE_TOOLS = {"odoo_create", "odoo_write"}
+
 
 class MerkagoMcpEngine(models.AbstractModel):
     _name = "merkago.mcp.engine"
@@ -84,6 +95,23 @@ class MerkagoMcpEngine(models.AbstractModel):
 
     def _public_url(self):
         return (self._icp("merkago_mcp.public_base_url") or self._icp("web.base.url") or "").rstrip("/")
+
+    def _disabled_tools(self):
+        raw = self._icp("merkago_mcp.disabled_tools", "") or ""
+        return {name.strip() for name in raw.split(",") if name.strip()}
+
+    def set_disabled_tools(self, names):
+        clean = [name for name in names if name in MCP_TOOL_NAMES]
+        self.env["ir.config_parameter"].sudo().set_param(
+            "merkago_mcp.disabled_tools", ",".join(clean)
+        )
+
+    def _tool_exposed(self, name, token=None):
+        if name in self._disabled_tools():
+            return False
+        if name in WRITE_TOOLS and (self._safe_mode(token) or not self._allow_write()):
+            return False
+        return True
 
     def get_module_version(self):
         module = self.env["ir.module.module"].sudo().search(
@@ -179,8 +207,8 @@ class MerkagoMcpEngine(models.AbstractModel):
             }
         )
 
-    def list_tools(self):
-        return [
+    def list_tools(self, token=None):
+        tools = [
             {
                 "name": "odoo_list_models",
                 "description": "List Odoo models exposed to this MCP token (whitelist scopes).",
@@ -255,11 +283,14 @@ class MerkagoMcpEngine(models.AbstractModel):
                 "inputSchema": {"type": "object", "properties": {}},
             },
         ]
+        return [tool for tool in tools if self._tool_exposed(tool["name"], token)]
 
     def call_tool(self, token, name, arguments=None, ip=None):
         arguments = arguments or {}
         if not self._is_enabled():
             raise UserError(_("MCP server is disabled."))
+        if not self._tool_exposed(name, token):
+            raise UserError(_("Tool disabled: %s") % name)
         if not token._check_quota(self._global_quota()):
             raise UserError(_("Daily MCP quota exceeded for this token."))
         start = time.time()

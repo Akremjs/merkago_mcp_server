@@ -54,6 +54,45 @@ class ResConfigSettings(models.TransientModel):
         string="Claude Connector Help",
         compute="_compute_mcp_claude_instructions",
     )
+    mcp_tool_list = fields.Boolean(string="Lister les modèles")
+    mcp_tool_describe = fields.Boolean(string="Décrire un modèle")
+    mcp_tool_search = fields.Boolean(string="Rechercher")
+    mcp_tool_read = fields.Boolean(string="Lire")
+    mcp_tool_create = fields.Boolean(string="Créer")
+    mcp_tool_write = fields.Boolean(string="Modifier")
+    mcp_tool_company = fields.Boolean(string="Contexte société")
+
+    _MCP_TOOL_FIELDS = {
+        "mcp_tool_list": "odoo_list_models",
+        "mcp_tool_describe": "odoo_describe_model",
+        "mcp_tool_search": "odoo_search_read",
+        "mcp_tool_read": "odoo_read",
+        "mcp_tool_create": "odoo_create",
+        "mcp_tool_write": "odoo_write",
+        "mcp_tool_company": "odoo_company_context",
+    }
+
+    @api.model
+    def get_values(self):
+        res = super().get_values()
+        engine = self.env["merkago.mcp.engine"]
+        disabled = engine._disabled_tools()
+        res.update(
+            {
+                field: tool not in disabled
+                for field, tool in self._MCP_TOOL_FIELDS.items()
+            }
+        )
+        return res
+
+    def set_values(self):
+        super().set_values()
+        disabled = [
+            tool
+            for field, tool in self._MCP_TOOL_FIELDS.items()
+            if not self[field]
+        ]
+        self.env["merkago.mcp.engine"].set_disabled_tools(disabled)
 
     @api.depends("mcp_public_base_url")
     def _compute_mcp_claude_instructions(self):
