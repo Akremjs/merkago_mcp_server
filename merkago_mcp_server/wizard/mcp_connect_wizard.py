@@ -195,6 +195,13 @@ class MerkagoMcpConnectWizard(models.TransientModel):
     def action_pack_accounting(self):
         return self._apply_pack("accounting", _("Comptabilité"))
 
+    def action_open_demo_video(self):
+        return {
+            "type": "ir.actions.act_url",
+            "url": "https://www.youtube.com/watch?v=1nYfrDcir1c",
+            "target": "new",
+        }
+
     def action_save(self):
         self.ensure_one()
         self._save_settings()

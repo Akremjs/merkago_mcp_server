@@ -11,6 +11,10 @@
                         <p class="text-muted">
                             En 2 minutes : copiez l'URL, ajoutez le connecteur dans Claude, autorisez votre compte Odoo.
                         </p>
+                        <button name="action_open_demo_video" type="object"
+                                string="Voir la vidéo démo"
+                                class="btn-danger"
+                                icon="fa-youtube-play"/>
                     </div>
 
                     <div class="alert alert-success" role="alert" invisible="status != 'ok'">
