@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Claude Connector Odoo",
-    "version": "20.0.2.0.10",
+    "version": "20.0.2.0.11",
     "category": "Productivity",
     "summary": "Connect Claude to Odoo via native MCP + OAuth",
     "description": """
@@ -33,7 +33,7 @@ Author: AKREM.KHELIFI — merkago.net
         "static/description/cl5.png",
         "static/description/cl6.png",
     ],
-    "depends": ["mail", "contacts"],
+    "depends": ["mail", "contacts", "product"],
     "data": [
         "security/mcp_security.xml",
         "security/ir.access.csv",
