@@ -54,7 +54,7 @@
     </record>
     <record id="icp_mcp_safe_mode" model="ir.config_parameter">
         <field name="key">merkago_mcp.safe_mode</field>
-        <field name="value">True</field>
+        <field name="value">False</field>
     </record>
     <record id="icp_mcp_allow_write" model="ir.config_parameter">
         <field name="key">merkago_mcp.allow_write</field>
