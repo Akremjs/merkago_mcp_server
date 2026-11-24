@@ -9,3 +9,4 @@ access_mcp_token_wizard_manager,merkago.mcp.token.wizard.manager,merkago.mcp.tok
 access_mcp_oauth_client_manager,merkago.mcp.oauth.client.manager,merkago.mcp.oauth.client,merkago_mcp_server.group_mcp_manager,crud,
 access_mcp_oauth_code_manager,merkago.mcp.oauth.code.manager,merkago.mcp.oauth.code,merkago_mcp_server.group_mcp_manager,crud,
 access_mcp_oauth_access_manager,merkago.mcp.oauth.access.manager,merkago.mcp.oauth.access,merkago_mcp_server.group_mcp_manager,crud,
+access_mcp_connect_wizard_manager,merkago.mcp.connect.wizard.manager,merkago.mcp.connect.wizard,merkago_mcp_server.group_mcp_manager,crud,
