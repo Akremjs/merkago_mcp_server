@@ -72,7 +72,7 @@ class MerkagoMcpController(http.Controller):
             {
                 "status": "ok" if enabled else "disabled",
                 "service": "merkago_mcp_server",
-                "version": mod.latest_version or "19.0.2.0.7",
+                "version": engine.get_module_version() or "19.0",
                 "phase": "P2",
                 "enabled": enabled,
                 "oauth": True,
