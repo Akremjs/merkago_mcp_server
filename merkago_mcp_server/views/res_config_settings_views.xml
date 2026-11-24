@@ -8,23 +8,23 @@
             <xpath expr="//form" position="inside">
                 <app data-string="Merkago MCP" string="Merkago MCP" name="merkago_mcp_server"
                      groups="merkago_mcp_server.group_mcp_manager">
-                    <block title="Claude Connector (P1)">
-                        <setting string="Enable MCP Server" help="Expose /mcp/health and /mcp/sse for Claude Desktop">
+                    <block title="Connecteur Claude">
+                        <setting string="Activer le serveur MCP" help="Expose /mcp/health et /mcp/sse pour Claude Desktop">
                             <field name="mcp_enabled"/>
                         </setting>
-                        <setting string="Safe Mode" help="Block all create/write even if scopes allow it">
+                        <setting string="Mode lecture seule (Safe Mode)" help="Bloque toute écriture même si les scopes l'autorisent">
                             <field name="mcp_safe_mode"/>
                         </setting>
-                        <setting string="Allow Writes">
+                        <setting string="Autoriser les écritures">
                             <field name="mcp_allow_write"/>
                         </setting>
-                        <setting string="Allow Unlink">
+                        <setting string="Autoriser les suppressions">
                             <field name="mcp_allow_unlink"/>
                         </setting>
-                        <setting string="Public Base URL" help="https://your-odoo-domain">
+                        <setting string="URL publique Odoo" help="https://votre-domaine-odoo">
                             <field name="mcp_public_base_url" placeholder="https://erp.example.com"/>
                         </setting>
-                        <setting string="Limits">
+                        <setting string="Limites">
                             <div class="content-group">
                                 <div class="row mt16">
                                     <label for="mcp_default_limit" class="col-lg-3"/>
@@ -40,13 +40,13 @@
                                 </div>
                             </div>
                         </setting>
-                        <setting string="Audit Log">
+                        <setting string="Journal d'audit">
                             <field name="mcp_audit_enabled"/>
                         </setting>
-                        <setting string="Claude Desktop setup">
+                        <setting string="Aide connexion Claude">
                             <field name="mcp_claude_instructions" widget="text" readonly="1"/>
                             <button name="action_mcp_copy_claude_help" type="object"
-                                    string="Show Claude instructions" class="btn-primary mt8"/>
+                                    string="Afficher les instructions" class="btn-primary mt8"/>
                         </setting>
                     </block>
                 </app>

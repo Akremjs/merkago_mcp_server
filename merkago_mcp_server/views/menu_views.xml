@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_mcp_root"
-              name="Merkago MCP"
+              name="Claude Connector"
               web_icon="merkago_mcp_server,static/description/icon.png"
               sequence="45"
               groups="merkago_mcp_server.group_mcp_manager"/>
+
+    <menuitem id="menu_mcp_connect"
+              name="Connecter Claude"
+              parent="menu_mcp_root"
+              action="action_mcp_connect_wizard"
+              sequence="1"/>
+
+    <menuitem id="menu_mcp_generate"
+              name="Générer un token (avancé)"
+              parent="menu_mcp_root"
+              action="action_mcp_token_wizard"
+              sequence="5"/>
 
     <menuitem id="menu_mcp_tokens"
               name="Tokens"
@@ -13,32 +25,26 @@
               sequence="10"/>
 
     <menuitem id="menu_mcp_scopes"
-              name="Scopes"
+              name="Droits (scopes)"
               parent="menu_mcp_root"
               action="action_mcp_scope"
               sequence="20"/>
 
     <menuitem id="menu_mcp_audit"
-              name="Audit Log"
+              name="Journal d'audit"
               parent="menu_mcp_root"
               action="action_mcp_audit"
               sequence="30"/>
 
     <menuitem id="menu_mcp_oauth_clients"
-              name="OAuth Clients"
+              name="Clients OAuth"
               parent="menu_mcp_root"
               action="action_mcp_oauth_client"
               sequence="40"/>
 
     <menuitem id="menu_mcp_oauth_access"
-              name="OAuth Access"
+              name="Sessions OAuth"
               parent="menu_mcp_root"
               action="action_mcp_oauth_access"
               sequence="50"/>
-
-    <menuitem id="menu_mcp_generate"
-              name="Generate Token"
-              parent="menu_mcp_root"
-              action="action_mcp_token_wizard"
-              sequence="5"/>
 </odoo>

@@ -69,7 +69,7 @@ class MerkagoMcpController(http.Controller):
             {
                 "status": "ok" if enabled else "disabled",
                 "service": "merkago_mcp_server",
-                "version": "17.0.2.0.0",
+                "version": engine.get_module_version() or "18.0",
                 "phase": "P2",
                 "enabled": enabled,
                 "oauth": True,
@@ -179,7 +179,7 @@ class MerkagoMcpController(http.Controller):
                     "capabilities": {"tools": {}},
                     "serverInfo": {
                         "name": "merkago_mcp_server",
-                        "version": "17.0.2.0.0",
+                        "version": engine.get_module_version() or "18.0",
                     },
                 }
                 if method.startswith("notifications/"):
