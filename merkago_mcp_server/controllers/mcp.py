@@ -182,7 +182,7 @@ class MerkagoMcpController(http.Controller):
                     "capabilities": {"tools": {}},
                     "serverInfo": {
                         "name": "merkago_mcp_server",
-                        "version": "17.0.2.0.0",
+                        "version": engine.get_module_version() or "odoo",
                     },
                 }
                 if method.startswith("notifications/"):

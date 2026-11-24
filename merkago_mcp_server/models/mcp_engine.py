@@ -67,20 +67,31 @@ class MerkagoMcpEngine(models.AbstractModel):
     def _public_url(self):
         return (self._icp("merkago_mcp.public_base_url") or self._icp("web.base.url") or "").rstrip("/")
 
+    def get_module_version(self):
+        module = self.env["ir.module.module"].sudo().search(
+            [("name", "=", "merkago_mcp_server")], limit=1
+        )
+        return module.latest_version or module.installed_version or ""
+
     def get_claude_connector_info(self):
         base = self._public_url()
+        sse = "%s/mcp/sse" % base if base else "/mcp/sse"
         return {
-            "sse_url": "%s/mcp/sse" % base if base else "/mcp/sse",
+            "sse_url": sse,
             "messages_url": "%s/mcp/messages" % base if base else "/mcp/messages",
             "health_url": "%s/mcp/health" % base if base else "/mcp/health",
             "instructions": _(
-                "Claude Desktop → Settings → Connectors → Add custom connector.\n"
-                "URL: %(sse)s\n"
-                "Leave OAuth Client ID / Secret empty (Dynamic Registration).\n"
-                "Claude opens Merkago login → sign in with your Odoo user → Allow.\n"
-                "Optional legacy: Merkago MCP → Generate Token (Bearer)."
+                "1) Merkago MCP → Connecter Claude → copiez l'URL.
+"
+                "2) Claude Desktop → Paramètres → Connecteurs → Ajouter.
+"
+                "3) Collez l'URL : %(sse)s
+"
+                "4) Laissez Client ID et Secret vides.
+"
+                "5) Connectez-vous avec votre utilisateur Odoo → Autoriser."
             )
-            % {"sse": "%s/mcp/sse" % base if base else "/mcp/sse"},
+            % {"sse": sse},
         }
 
     def _user_env(self, token):
