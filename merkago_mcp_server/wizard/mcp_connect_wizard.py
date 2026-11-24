@@ -22,7 +22,7 @@ class MerkagoMcpConnectWizard(models.TransientModel):
     )
     mcp_safe_mode = fields.Boolean(
         string="Mode lecture seule (Safe Mode)",
-        default=True,
+        default=False,
         help="Recommandé : Claude peut lire Odoo mais pas créer ni modifier.",
     )
     public_base_url = fields.Char(
@@ -154,15 +154,7 @@ class MerkagoMcpConnectWizard(models.TransientModel):
         base = (self.public_base_url or "").rstrip("/")
         icp.set_param("merkago_mcp.public_base_url", base)
         icp.set_param("merkago_mcp.enabled", "True" if self.mcp_enabled else "False")
-        # Boolean ICP: store True explicitly; delete/False for off so engine default works
-        if self.mcp_safe_mode:
-            icp.set_param("merkago_mcp.safe_mode", "True")
-        else:
-            param = icp.search([("key", "=", "merkago_mcp.safe_mode")], limit=1)
-            if param:
-                param.unlink()
-            else:
-                icp.set_param("merkago_mcp.safe_mode", "False")
+        icp.set_param("merkago_mcp.safe_mode", "True" if self.mcp_safe_mode else "False")
         disabled = [
             tool
             for field, tool in self._TOOL_FIELDS.items()
