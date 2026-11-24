@@ -1,26 +1,28 @@
 INSTALLATION — Claude Connector Odoo (merkago_mcp_server)
 =========================================================
 
-NE PAS utiliser Applications → Importer un module (zip).
-Cette fonction Odoo n’installe que des modules « données » (XML/CSV) :
-elle ne charge PAS le code Python. Résultat typique :
-  « Aucun enregistrement trouvé pour id externe model_merkago_mcp_* »
-
-Installation correcte (serveur / Odoo.sh / Docker)
---------------------------------------------------
-1. Dézipper l’archive.
-2. Copier le dossier merkago_mcp_server/ dans le chemin addons Odoo
+1. Dézippez l'archive.
+2. Copiez le dossier merkago_mcp_server/ dans le chemin addons Odoo
    (ex. /mnt/extra-addons/ ou le dépôt Git Odoo.sh).
-3. Redémarrer Odoo.
+3. Redémarrez Odoo.
 4. Mode développeur → Applications → Mettre à jour la liste des applications.
-5. Chercher « Claude Connector » ou « Merkago » → Installer.
+5. Cherchez « Claude Connector » → Installer.
 
-Dépendances : mail, contacts, product (installées automatiquement).
+Le bouton Applications → Importer un module ne charge pas le code Python.
+Erreur typique : « Aucun enregistrement trouvé pour id externe model_merkago_mcp_* ».
 
-Vérification
-------------
-  curl https://VOTRE-DOMAINE/mcp/health
+Dépendances : mail, contacts, product (installées avec le module).
 
-Ensuite : Merkago MCP → Connecter Claude → coller l’URL dans Claude.
+Après l'installation
+--------------------
+Claude Connector → Connecter Claude
+  * URL publique HTTPS
+  * Checklist (URL, serveur, droits, OAuth)
+  * Droits en un clic : Contacts, Ventes/CRM, Stock, Comptabilité
+  * Autre application : Droits (scopes) → Nouveau → modèle Odoo
+  * Outils : cochez ceux que Claude peut utiliser
+  * Copiez l'URL /mcp/sse dans Claude (Client ID et Secret vides)
+
+Vérification : curl https://VOTRE-DOMAINE/mcp/health
 
 Contact : https://merkago.net
