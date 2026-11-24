@@ -33,10 +33,28 @@ class MerkagoMcpConnectWizard(models.TransientModel):
     health_url = fields.Char(string="URL de test", compute="_compute_urls")
     instructions = fields.Text(string="Étapes", compute="_compute_urls")
     test_result = fields.Text(string="Résultat du test", readonly=True)
+    checklist = fields.Text(string="Checklist", compute="_compute_status")
     oauth_sessions = fields.Integer(
         string="Connexions OAuth actives",
         compute="_compute_status",
     )
+    tool_list = fields.Boolean(string="Lister les modèles", default=True)
+    tool_describe = fields.Boolean(string="Décrire un modèle", default=True)
+    tool_search = fields.Boolean(string="Rechercher", default=True)
+    tool_read = fields.Boolean(string="Lire", default=True)
+    tool_create = fields.Boolean(string="Créer", default=True)
+    tool_write = fields.Boolean(string="Modifier", default=True)
+    tool_company = fields.Boolean(string="Contexte société", default=True)
+
+    _TOOL_FIELDS = {
+        "tool_list": "odoo_list_models",
+        "tool_describe": "odoo_describe_model",
+        "tool_search": "odoo_search_read",
+        "tool_read": "odoo_read",
+        "tool_create": "odoo_create",
+        "tool_write": "odoo_write",
+        "tool_company": "odoo_company_context",
+    }
 
     @api.model
     def default_get(self, fields_list):
@@ -51,11 +69,18 @@ class MerkagoMcpConnectWizard(models.TransientModel):
         if icp.get_param("merkago_mcp.enabled", "True") != "True":
             # keep user choice if explicitly disabled; otherwise engine defaults to on
             pass
+        disabled = engine._disabled_tools()
         res.update(
             {
                 "public_base_url": public or web_base,
                 "mcp_enabled": engine._is_enabled(),
                 "mcp_safe_mode": engine._safe_mode(),
+            }
+        )
+        res.update(
+            {
+                field: tool not in disabled
+                for field, tool in self._TOOL_FIELDS.items()
             }
         )
         return res
@@ -109,6 +134,19 @@ class MerkagoMcpConnectWizard(models.TransientModel):
                 ) % {
                     "safe": _("ON (lecture seule)") if wiz.mcp_safe_mode else _("OFF"),
                 }
+            scopes = self.env["merkago.mcp.scope"].sudo().search_count([("active", "=", True)])
+            https = base.startswith("https://") or "localhost" in base or "127.0.0.1" in base
+            lines = [
+                _("URL publique : %s") % ("OK" if base else _("manquante")),
+                _("HTTPS : %s") % ("OK" if https and base else _("à corriger")),
+                _("Serveur MCP : %s") % ("OK" if wiz.mcp_enabled else _("désactivé")),
+                _("Scopes actifs : %s") % scopes,
+                _("OAuth : OK (Client ID et Secret vides dans Claude)"),
+                _("Safe Mode : %s") % (_("ON") if wiz.mcp_safe_mode else _("OFF")),
+            ]
+            if scopes < 1:
+                lines.append(_("→ Activez un pack de droits (Contacts, Ventes, Stock)."))
+            wiz.checklist = "\n".join(lines)
 
     def _save_settings(self):
         self.ensure_one()
@@ -125,7 +163,37 @@ class MerkagoMcpConnectWizard(models.TransientModel):
                 param.unlink()
             else:
                 icp.set_param("merkago_mcp.safe_mode", "False")
+        disabled = [
+            tool
+            for field, tool in self._TOOL_FIELDS.items()
+            if not self[field]
+        ]
+        self.env["merkago.mcp.engine"].set_disabled_tools(disabled)
         return base
+
+    def _apply_pack(self, pack, label):
+        self.ensure_one()
+        self._save_settings()
+        result = self.env["merkago.mcp.scope"].apply_pack(pack)
+        skipped = ", ".join(result["skipped"]) if result["skipped"] else _("aucun")
+        return self._notify(
+            _("%(label)s : %(n)s modèle(s) activé(s). Ignorés (app absente) : %(skip)s")
+            % {"label": label, "n": result["activated"], "skip": skipped},
+            "success" if result["activated"] else "warning",
+            sticky=True,
+        )
+
+    def action_pack_contacts(self):
+        return self._apply_pack("contacts", _("Contacts"))
+
+    def action_pack_sales(self):
+        return self._apply_pack("sales", _("Ventes / CRM"))
+
+    def action_pack_inventory(self):
+        return self._apply_pack("inventory", _("Stock / Produits"))
+
+    def action_pack_accounting(self):
+        return self._apply_pack("accounting", _("Comptabilité"))
 
     def action_save(self):
         self.ensure_one()

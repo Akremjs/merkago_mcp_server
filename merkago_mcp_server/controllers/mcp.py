@@ -73,6 +73,13 @@ class MerkagoMcpController(http.Controller):
                 "phase": "P2",
                 "enabled": enabled,
                 "oauth": True,
+                "safe_mode": engine._safe_mode(),
+                "public_url": bool(engine._public_url()),
+                "https": (engine._public_url() or "").startswith("https://"),
+                "tools": [tool["name"] for tool in engine.list_tools()],
+                "scopes": request.env["merkago.mcp.scope"].sudo().search_count(
+                    [("active", "=", True)]
+                ),
             }
         )
 
@@ -193,7 +200,7 @@ class MerkagoMcpController(http.Controller):
                 return {
                     "jsonrpc": "2.0",
                     "id": req_id,
-                    "result": {"tools": engine.list_tools()},
+                    "result": {"tools": engine.list_tools(token)},
                 }
 
             if method == "tools/call":
