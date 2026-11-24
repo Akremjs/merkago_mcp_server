@@ -13,7 +13,7 @@ class ResConfigSettings(models.TransientModel):
     mcp_safe_mode = fields.Boolean(
         string="Safe Mode (read-only)",
         config_parameter="merkago_mcp.safe_mode",
-        default=True,
+        default=False,
     )
     mcp_allow_write = fields.Boolean(
         string="Allow Writes",
@@ -87,6 +87,18 @@ class ResConfigSettings(models.TransientModel):
 
     def set_values(self):
         super().set_values()
+        # Odoo deletes a boolean parameter when the box is unchecked, then the
+        # field default fills the form again. Store an explicit True/False so
+        # the saved choice survives the next opening of Settings.
+        icp = self.env["ir.config_parameter"].sudo()
+        for field_name, key in (
+            ("mcp_enabled", "merkago_mcp.enabled"),
+            ("mcp_safe_mode", "merkago_mcp.safe_mode"),
+            ("mcp_allow_write", "merkago_mcp.allow_write"),
+            ("mcp_allow_unlink", "merkago_mcp.allow_unlink"),
+            ("mcp_audit_enabled", "merkago_mcp.audit_enabled"),
+        ):
+            icp.set_param(key, "True" if self[field_name] else "False")
         disabled = [
             tool
             for field, tool in self._MCP_TOOL_FIELDS.items()
