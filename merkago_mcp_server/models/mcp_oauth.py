@@ -252,22 +252,30 @@ class MerkagoMcpOauthAccess(models.Model):
             return self.browse()
         if rec.expires_at and rec.expires_at < fields.Datetime.now():
             return self.browse()
-        # Keep linked MCP token aligned with current settings / scopes.
-        # issue() snapshots once; without this, Safe Mode stays stuck on the token
-        # and newly created scopes never appear until the user re-authorizes.
-        if rec.mcp_token_id:
-            safe = self.env["merkago.mcp.engine"]._icp(
-                "merkago_mcp.safe_mode", "False"
-            ) == "True"
-            scopes = self.env["merkago.mcp.scope"].sudo().search([("active", "=", True)])
-            vals = {}
-            if rec.mcp_token_id.safe_mode != safe:
-                vals["safe_mode"] = safe
-            if scopes and set(rec.mcp_token_id.scope_ids.ids) != set(scopes.ids):
-                vals["scope_ids"] = [(6, 0, scopes.ids)]
-            if vals:
-                rec.mcp_token_id.write(vals)
+        rec._sync_token_settings()
         return rec
+
+    def _sync_token_settings(self):
+        """Refresh the linked token from current Safe Mode and active scopes.
+
+        issue() stores a snapshot. The HTTP layer often matches merkago.mcp.token
+        before this OAuth record, so the snapshot must be refreshed here too.
+        """
+        self.ensure_one()
+        token = self.mcp_token_id
+        if not token:
+            return
+        safe = self.env["merkago.mcp.engine"]._icp(
+            "merkago_mcp.safe_mode", "False"
+        ) == "True"
+        scopes = self.env["merkago.mcp.scope"].sudo().search([("active", "=", True)])
+        vals = {}
+        if token.safe_mode != safe:
+            vals["safe_mode"] = safe
+        if scopes and set(token.scope_ids.ids) != set(scopes.ids):
+            vals["scope_ids"] = [(6, 0, scopes.ids)]
+        if vals:
+            token.write(vals)
 
     def refresh(self, refresh_raw):
         self.ensure_one()

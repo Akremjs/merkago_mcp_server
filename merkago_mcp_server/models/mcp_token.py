@@ -77,6 +77,14 @@ class MerkagoMcpToken(models.Model):
             return self.browse()
         if token.expires_at and token.expires_at < fields.Datetime.now():
             return self.browse()
+        # OAuth issues the same secret on this token. Refresh scopes before use,
+        # otherwise a new whitelist stays invisible until the user reconnects.
+        access = self.env["merkago.mcp.oauth.access"].sudo().search(
+            [("mcp_token_id", "=", token.id), ("active", "=", True)],
+            limit=1,
+        )
+        if access:
+            access._sync_token_settings()
         return token
 
     def _check_quota(self, global_quota):
