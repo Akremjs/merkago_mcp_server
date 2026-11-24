@@ -37,3 +37,58 @@ class MerkagoMcpScope(models.Model):
     def _onchange_model_id(self):
         if self.model_id and not self.name:
             self.name = self.model_id.name
+
+    @api.model
+    def apply_pack(self, pack):
+        """Activate a ready-made scope pack. Skips models that are not installed."""
+        specs = SCOPE_PACKS.get(pack) or []
+        IrModel = self.env["ir.model"].sudo()
+        activated = 0
+        skipped = []
+        for model_name, label, sequence in specs:
+            model = IrModel.search([("model", "=", model_name)], limit=1)
+            if not model:
+                skipped.append(model_name)
+                continue
+            existing = self.sudo().search([("model_name", "=", model_name)], limit=1)
+            vals = {
+                "name": label,
+                "model_id": model.id,
+                "pack": pack,
+                "sequence": sequence,
+                "active": True,
+                "perm_read": True,
+                "perm_write": False,
+                "perm_create": False,
+                "perm_unlink": False,
+            }
+            if existing:
+                existing.write({"active": True, "pack": pack, "perm_read": True})
+            else:
+                self.sudo().create(vals)
+            activated += 1
+        return {"activated": activated, "skipped": skipped}
+
+
+SCOPE_PACKS = {
+    "contacts": [
+        ("res.partner", "Contacts / Partners", 10),
+        ("res.users", "Users (read)", 90),
+    ],
+    "sales": [
+        ("sale.order", "Sales Orders", 30),
+        ("sale.order.line", "Sales Order Lines", 31),
+        ("crm.lead", "CRM Opportunities", 32),
+    ],
+    "inventory": [
+        ("product.template", "Products / Templates", 20),
+        ("product.product", "Products / Variants", 21),
+        ("product.category", "Product Categories", 22),
+        ("stock.quant", "Stock On Hand", 23),
+    ],
+    "accounting": [
+        ("account.move", "Invoices / Entries", 40),
+        ("account.move.line", "Journal Items", 41),
+        ("account.payment", "Payments", 42),
+    ],
+}
