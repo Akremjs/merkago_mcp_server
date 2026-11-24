@@ -1,50 +1,35 @@
-# Merkago MCP Server — Claude Connector (P2)
+# Claude Connector Odoo
 
-Native MCP server inside Odoo Community for **Claude Desktop**, with **OAuth 2.1 + PKCE**.
+Serveur MCP natif dans Odoo pour **Claude Desktop** et **Claude.ai** : OAuth 2.1 + PKCE, Safe Mode, droits par application, outils activables.
 
-## Phase 2 features
+## Installation
 
-- `/mcp/health`, `/mcp/sse`, `/mcp/messages`
-- OAuth discovery: `/.well-known/oauth-authorization-server`, `/.well-known/oauth-protected-resource`
-- `/oauth/register` (Dynamic Client Registration), `/oauth/authorize`, `/oauth/token`
-- Legacy Bearer tokens still supported
-- Tools: list/describe models, search_read, read, create, write, company_context
-- Safe Mode, scopes, audit log
+Copiez le dossier `merkago_mcp_server/` dans le chemin **addons** Odoo (serveur, Docker ou dépôt Git Odoo.sh).
 
-## Installation (important)
+1. Redémarrez Odoo
+2. Mode développeur → Applications → Mettre à jour la liste des applications
+3. Installez **Claude Connector Odoo**
 
-**Do not** use Apps → *Import Module* (zip). That path only loads XML/CSV data —
-it never registers Python models, which causes `model_merkago_mcp_*` / `model_id` errors.
+Dépendances installées avec le module : `mail`, `contacts`, `product`.
 
-Correct install:
+Le bouton Applications → Importer un module ne charge pas le Python de ce connecteur (`model_merkago_mcp_*`). Voir `INSTALL.txt`.
 
-1. Unzip and copy `merkago_mcp_server/` into the Odoo addons path (or Odoo.sh git repo)
-2. Restart Odoo → Update Apps List → Install **Claude Connector Odoo**
-3. Depends: `mail`, `contacts`, `product`
+## Après l'installation
 
-See `INSTALL.txt` at the archive root (French).
+1. **Claude Connector → Connecter Claude**
+2. Renseignez l'URL publique HTTPS. La checklist indique ce qui manque.
+3. **Droits en un clic** : Contacts, Ventes/CRM, Stock, Comptabilité (lecture seule).
+4. Autre application : **Droits (scopes) → Nouveau**, choisissez le modèle Odoo.
+5. Décochez les outils que Claude ne doit pas voir. Safe Mode masque Créer et Modifier.
+6. Copiez l'URL `https://VOTRE-DOMAINE/mcp/sse` dans Claude → Connecteurs. Client ID et Secret vides. Autorisez avec un utilisateur interne.
 
-## Claude Desktop setup
-
-1. Install / upgrade module (addons path — see above)
-2. Set Public Base URL to `https://YOUR-DOMAIN` (Settings → Merkago MCP)
-3. Ensure `dbfilter` selects one DB if multi-database
-4. Claude → Connectors → Add custom connector
-   - URL: `https://YOUR-DOMAIN/mcp/sse`
-   - Leave OAuth Client ID / Secret **empty**
-5. Sign in with your **Odoo internal user** on the Merkago authorize page
-
-## Test
+## Vérification
 
 ```bash
-curl https://YOUR-DOMAIN/mcp/health
-curl https://YOUR-DOMAIN/.well-known/oauth-authorization-server
-curl -i https://YOUR-DOMAIN/mcp/sse   # expect 401 + WWW-Authenticate
+curl https://VOTRE-DOMAINE/mcp/health
 ```
 
-## Next phases (CDC)
-
-P3 Dashboards · P4 ACL UI · P5 CRM · P6 Documents/scrape · P7 Apps polish
+La réponse indique `safe_mode`, la liste `tools` et le nombre de `scopes`.
 
 ## Author
 

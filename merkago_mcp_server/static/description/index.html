@@ -103,7 +103,8 @@
             &#10003;&nbsp; <strong>Pens&eacute; pour Claude</strong>&nbsp;: Connectors Claude (MCP distant), Streamable HTTP + SSE classique.
           </p>
           <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
-            &#10003;&nbsp; <strong>Whitelist stricte</strong>&nbsp;: seuls les mod&egrave;les autoris&eacute;s (Contacts, Produits, Ventes&hellip;) sont visibles.
+            &#10003;&nbsp; <strong>Droits en un clic</strong>&nbsp;: Contacts, Ventes/CRM, Stock, Comptabilit&eacute;.
+            Pour une autre application&nbsp;: Droits (scopes) &rarr; Nouveau &rarr; choisir le mod&egrave;le.
           </p>
           <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
             &#10003;&nbsp; <strong>Safe Mode</strong>&nbsp;: bloque les &eacute;critures jusqu&rsquo;&agrave; ce que vous les autorisiez explicitement.
@@ -149,10 +150,10 @@
             <td width="33%" bgcolor="#ffffff" style="background-color:#ffffff;border:2px solid #0B3D4A;padding:16px;vertical-align:top;">
               <div style="font-size:15px;font-weight:800;color:#136F63;margin-bottom:8px;">GOUVERNANCE</div>
               <div style="font-size:15px;line-height:1.55;font-weight:700;color:#0B3D4A;">
-                Scopes / whitelist<br/>
-                Safe Mode (no write)<br/>
-                Quotas journaliers<br/>
-                Journal d&rsquo;audit
+                Packs Contacts, Ventes/CRM,<br/>
+                Stock, Comptabilit&eacute;<br/>
+                Outils activables<br/>
+                Safe Mode + audit
               </div>
             </td>
           </tr>
@@ -388,20 +389,25 @@
       <td bgcolor="#E8F0F2" style="background-color:#E8F0F2;padding:48px 24px;">
         <div style="max-width:820px;margin:0 auto;">
           <h2 style="margin:0 0 18px;text-align:center;font-size:30px;font-weight:800;color:#0B3D4A;">
-            Parcours en 4 &eacute;tapes
+            Installation et connexion
           </h2>
           <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
-            <strong>1.</strong> Placez <code>merkago_mcp_server/</code> dans le chemin <strong>addons</strong> Odoo (pas &laquo;&nbsp;Importer un module&nbsp;&raquo;),
-            installez, puis renseignez l&rsquo;<strong>URL publique HTTPS</strong> (Merkago MCP &rarr; Configuration).
+            <strong>1. Installer.</strong> Copiez <code>merkago_mcp_server/</code> dans le chemin <strong>addons</strong>,
+            red&eacute;marrez Odoo, mettez &agrave; jour la liste des applications, puis installez <strong>Claude Connector Odoo</strong>.
+            Le bouton &laquo;&nbsp;Importer un module&nbsp;&raquo; ne charge pas ce connecteur Python.
           </p>
           <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
-            <strong>2.</strong> Ajoutez le connecteur Claude avec <code>https://YOUR-DOMAIN/mcp/sse</code> et autorisez (utilisateur interne).
+            <strong>2. Connecter Claude.</strong> Menu <strong>Claude Connector &rarr; Connecter Claude</strong>.
+            Renseignez l&rsquo;URL publique HTTPS. La checklist confirme le serveur, les droits et l&rsquo;OAuth.
+            Dans Claude&nbsp;: Connecteurs &rarr; coller <code>https://VOTRE-DOMAINE/mcp/sse</code>, Client ID et Secret vides, puis Autoriser.
           </p>
           <p style="margin:0 0 12px;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
-            <strong>3.</strong> Whitelistez les mod&egrave;les (scopes) et gardez le Safe Mode activ&eacute;.
+            <strong>3. Droits.</strong> Boutons Contacts, Ventes/CRM, Stock, Comptabilit&eacute; (lecture seule).
+            Autre application&nbsp;: <strong>Droits (scopes) &rarr; Nouveau</strong> et choisissez le mod&egrave;le.
+            D&eacute;cochez les outils inutiles. Le Safe Mode masque Cr&eacute;er et Modifier.
           </p>
           <p style="margin:0;font-size:16px;line-height:1.7;font-weight:600;color:#1a1a1a;">
-            <strong>4.</strong> Testez dans Claude&nbsp;: <em>odoo_list_models</em> puis <em>odoo_search_read</em> sur <code>product.template</code>.
+            <strong>4. V&eacute;rifier.</strong> <code>https://VOTRE-DOMAINE/mcp/health</code> puis, dans Claude, lister les mod&egrave;les autoris&eacute;s.
           </p>
         </div>
       </td>
